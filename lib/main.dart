@@ -13,6 +13,7 @@ class _MyAppState extends State<MyApp> {
   List<String> _pages = [
     'International payments',
     'Cryptocurrencies',
+    'Stonks',
     'Diagrams'
   ];
   final _controller = PageController(
@@ -33,8 +34,8 @@ class _MyAppState extends State<MyApp> {
   static String _appName = 'Math Currency';
   Color _themColor1 = Color(_darkThemColor);
   Color _themColor2 = Color(_softGray);
-  Color _fontColor1 = Colors.white;
-  Color _fontColor2 = Colors.black;
+  static Color _fontColor1 = Colors.white;
+  static Color _fontColor2 = Colors.black;
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,7 +54,28 @@ class _MyAppState extends State<MyApp> {
                 child: Text(_appName,
                     style: TextStyle(fontSize: 25, color: _fontColor1)),
                 alignment: Alignment(-0.6, 0.6),
-              )
+              ),
+              ListTile(
+                leading: Icon(Icons.help, color: _fontColor2),
+                title: Text('Tips and Questions'),
+              ),
+              ListTile(
+                leading: Icon(Icons.chat, color: _fontColor2),
+                title: Text('Opinion'),
+              ),
+              ListTile(
+                leading: Icon(Icons.thumb_up, color: _fontColor2),
+                title: Text('Like Us'),
+              ),
+              Divider(),
+              Expanded(
+                  child: Align(
+                alignment: FractionalOffset.bottomRight,
+                child: ListTile(
+                  leading: Icon(Icons.settings, color: _fontColor2),
+                  title: Text('Settings'),
+                ),
+              ))
             ],
           )),
           body: Column(children: [
@@ -96,8 +118,12 @@ class _MyAppState extends State<MyApp> {
           ]),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
-            child: Icon(Icons.add_circle, color: Colors.black),
-            backgroundColor: _themColor1,
+            backgroundColor: _fontColor2,
+            child: Icon(
+              Icons.cached,
+              color: _fontColor1,
+              size: 33,
+            ),
           )),
     );
   }
