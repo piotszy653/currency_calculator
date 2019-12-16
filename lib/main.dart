@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //import './navigation/navigation.dart';
 import './Storage/Storage.dart';
-//import './side_menu.dart';
+import './side_menu.dart';
 import './app_bar.dart';
 
 void main() => runApp(MyApp());
@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
           home: Scaffold(
             appBar: MainAppBar(),
-            // drawer: SideMenu(),
+            drawer: SideMenu(),
             // body: Column(children: [Navigation(), DisplayArea()]),
             // floatingActionButton: FloatingActionButton(
             //   onPressed: () {},
