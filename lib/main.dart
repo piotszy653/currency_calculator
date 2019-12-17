@@ -1,7 +1,7 @@
-//import 'package:currency_calculator/display_area/display_area.dart';
+import 'package:currency_calculator/display_area/display_area.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-//import './navigation/navigation.dart';
+import './navigation/navigation.dart';
 import './Storage/Storage.dart';
 import './side_menu.dart';
 import './app_bar.dart';
@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
           home: Scaffold(
             appBar: MainAppBar(),
             drawer: SideMenu(),
-            // body: Column(children: [Navigation(), DisplayArea()]),
+            body: Column(children: [Navigation(), DisplayArea()]),
             // floatingActionButton: FloatingActionButton(
             //   onPressed: () {},
             //   backgroundColor: _fontColor2,
@@ -36,10 +36,4 @@ class _MyAppState extends State<MyApp> {
           ),
         ));
   }
-
-  // void onPageChanged(int value) {
-  //   setState(() {
-  //     this._page = value;
-  //   });
-  // }
 }

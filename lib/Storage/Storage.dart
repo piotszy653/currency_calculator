@@ -14,25 +14,30 @@ class Storage extends ChangeNotifier {
 
   String _appName = 'Math Currency';
   String get appName => _appName;
-  set appName(String value) {
-    _appName = value;
-    notifyListeners();
-  }
 
   int _themIndex = 0;
   int get themIndex => _themIndex;
 
-  List<Them> _thems = [Them(Color(0xFF222222), Color(0x12344321), Colors.black, Colors.white)];
+  List<Them> _thems = [
+    Them(Color(0xFFfe6f27), Color(0xFF2f2d29), Colors.orange, Colors.orange[50]),
+    Them(Color(0xFF2a3251), Color(0xFFffd55b), Colors.black87, Colors.white70),
+    Them(Color(0xFF761238), Color(0xFFed3561), Colors.pink[100], Colors.white70),
+    Them(Color(0xFF28334f), Color(0xFFf93800), Colors.yellow[700], Colors.white70),
+    Them(Color(0xFF30110e), Color(0xFFf2bd96), Colors.brown[700], Colors.brown[50])
+    ];
   List<Them> get thems => _thems;
-  set thems(List<Them> value) {
-    _thems = value;
+
+  PageController _controller = PageController(
+    initialPage: 1,
+  );
+  PageController get controller => _controller;
+
+  int _page = 1;
+  int get page => _page;
+  set page(int value) {
+    _page = value;
     notifyListeners();
   }
-  // PageController _controller = PageController(
-  //   initialPage: 1,
-  // );
-
-  // int _page = 1;
 }
 
 class Them {

@@ -18,11 +18,13 @@ class _MainAppBarState extends State<MainAppBar> {
   @override
   Widget build(BuildContext context) {
     final Storage storage = Provider.of<Storage>(context);
-
+    Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
+    
     return AppBar(
-      title: Text(storage.appName.toString()),
+      title: Text(storage.appName.toString(), style: TextStyle(color: fontColorLight)),
       elevation: 0.0,
       backgroundColor: storage.thems[storage.themIndex.toInt()].backgrounds.darker,
+      iconTheme: new IconThemeData(color: fontColorLight),
     );
   }
 }
