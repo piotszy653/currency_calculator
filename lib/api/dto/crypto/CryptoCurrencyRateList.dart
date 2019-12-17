@@ -1,4 +1,4 @@
-import 'package:currency_calculator/api/dto/CryptoCurrencyRate.dart';
+import 'package:currency_calculator/api/dto/crypto/CryptoCurrencyRate.dart';
 
 class CryptoCurrencyRateList{
   List<CryptoCurrencyRate> rates;

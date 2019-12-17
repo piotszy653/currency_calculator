@@ -4,6 +4,7 @@ import './dto/ExchangeRate.dart';
 import 'dart:convert';
 
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
+String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
 
 Future<ExchangeRate> fetchLatestExchangeRate(String base) async {
   final response =
@@ -25,6 +26,23 @@ Future<CryptoCurrencyRateList> fetchLatestCryptoCurrencyRate(String base, int nu
     return CryptoCurrencyRateList.fromJson(json.decode(response.body), base, numberOfCryptoCurrencies);
   } else {
     throw Exception('Failed to load exchange rate');
+  }
+}
+
+Future<String> fetchFlagByCurrency(String currency) async{
+  if(currency == 'EUR')
+  return europeanUnionFlagUrl;
+  final response = await http.get('https://restcountries.eu/rest/v2/currency/' + currency);
+
+  if (response.statusCode == 200) {
+    List<dynamic> countryResponse = json.decode(response.body);
+    return countryResponse.map((json) => json['flag']).toList().first;
+  } else if(response.statusCode == 400){
+    throw Exception('wrong currency: '+ currency);
+  }
+  
+  else {
+    throw Exception('Failed to load flag for ' + currency);
   }
 }
 
