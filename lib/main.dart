@@ -5,6 +5,7 @@ import './navigation/navigation.dart';
 import './Storage/Storage.dart';
 import './side_menu.dart';
 import './app_bar.dart';
+import './floating_button.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,15 +25,7 @@ class _MyAppState extends State<MyApp> {
             appBar: MainAppBar(),
             drawer: SideMenu(),
             body: Column(children: [Navigation(), DisplayArea()]),
-            // floatingActionButton: FloatingActionButton(
-            //   onPressed: () {},
-            //   backgroundColor: _fontColor2,
-            //   child: Icon(
-            //     Icons.cached,
-            //     color: _fontColor1,
-            //     size: 33,
-            //   ),
-            // )
+            floatingActionButton: FloatingButton()
           ),
         ));
   }

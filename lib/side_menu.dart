@@ -1,3 +1,4 @@
+import 'package:currency_calculator/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Storage/Storage.dart';
@@ -13,6 +14,7 @@ class SideMenu extends StatelessWidget {
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
     Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
     TextStyle recordTextStyle = TextStyle(fontSize: 13, color: fontColorDark);
+    SettingsPage settingsPage = new SettingsPage();
 
     return Drawer(
         child: Column(
@@ -21,7 +23,10 @@ class SideMenu extends StatelessWidget {
           height: 200,
           color: backgroundDark,
           child: Text(storage.appName.toString(),
-              style: TextStyle(fontSize: 25, color: fontColorLight, fontWeight: FontWeight.w800)),
+              style: TextStyle(
+                  fontSize: 25,
+                  color: fontColorLight,
+                  fontWeight: FontWeight.w800)),
           alignment: Alignment(-0.6, 0.6),
         ),
         Expanded(
@@ -46,6 +51,9 @@ class SideMenu extends StatelessWidget {
                         child: Align(
                       alignment: FractionalOffset.bottomRight,
                       child: ListTile(
+                        onTap: () {
+                          settingsPage.mainBottomSheet(context);
+                        },
                         leading: Icon(Icons.settings, color: fontColorDark),
                         title: Text('Settings', style: recordTextStyle),
                       ),
