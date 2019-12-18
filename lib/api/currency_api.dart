@@ -1,3 +1,4 @@
+import 'package:currency_calculator/api/Currency.dart';
 import 'package:currency_calculator/api/dto/crypto/CryptoCurrencyRateList.dart';
 import 'package:http/http.dart' as http;
 import './dto/ExchangeRate.dart';
@@ -17,13 +18,13 @@ Future<ExchangeRate> fetchLatestExchangeRate(String base) async {
   }
 }
 
-Future<CryptoCurrencyRateList> fetchLatestCryptoCurrencyRate(String base, int numberOfCryptoCurrencies) async {
+Future<List<Currency>> fetchLatestCryptoCurrenciesRate(String base, int numberOfCryptoCurrencies) async {
   final response =
       await http.get(
         'https://api.nomics.com/v1/currencies/ticker?key='+nomicsApiKey+'&convert='+base);
 
   if (response.statusCode == 200) {
-    return CryptoCurrencyRateList.fromJson(json.decode(response.body), base, numberOfCryptoCurrencies);
+    return CryptoCurrencyRateList.fromJson(json.decode(response.body), base, numberOfCryptoCurrencies).rates;
   } else {
     throw Exception('Failed to load exchange rate');
   }
