@@ -4,21 +4,28 @@ import 'package:provider/provider.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool backButton;
-  MainAppBar({Key key, bool backButton = false})
+  final VoidCallback returnCallback;
+  final String title;
+  MainAppBar({Key key, bool backButton = false, VoidCallback returnCallback, String title})
       : preferredSize = Size.fromHeight(kToolbarHeight),
         this.backButton = backButton,
+        this.returnCallback = returnCallback,
+        this.title = title,
         super(key: key);
 
   @override
   final Size preferredSize;
 
   @override
-  _MainAppBarState createState() => _MainAppBarState(this.backButton);
+  _MainAppBarState createState() =>
+      _MainAppBarState(this.backButton, this.returnCallback, this.title);
 }
 
 class _MainAppBarState extends State<MainAppBar> {
-  _MainAppBarState(this.backButton);
+  _MainAppBarState(this.backButton, this.returnCallback, this.title);
   final bool backButton;
+  final VoidCallback returnCallback;
+  String title;
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +37,23 @@ class _MainAppBarState extends State<MainAppBar> {
     if (backButton) {
       actions = [
         new IconButton(
-          icon: new Icon(Icons.keyboard_arrow_down, size: 33,),
+          icon: new Icon(
+            Icons.keyboard_arrow_down,
+            size: 33,
+          ),
           onPressed: () => Navigator.of(context).pop(null),
         )
       ];
       leading = new Container();
     }
 
+    if (returnCallback != null) {
+      leading = new GestureDetector(
+          onTap: returnCallback, child: new Icon(Icons.arrow_back));
+    }
+
     return AppBar(
-      title: Text(storage.appName.toString(),
+      title: Text(title != null ? title : storage.appName.toString(),
           style: TextStyle(color: fontColorLight)),
       elevation: 0.0,
       backgroundColor:

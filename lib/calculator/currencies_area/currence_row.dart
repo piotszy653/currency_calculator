@@ -53,78 +53,91 @@ class CurrenceRow extends StatelessWidget {
         onTap: () {
           storage.currency = id;
         },
-        child: AnimatedContainer(
-          height: selected ? 65 : 59,
-          color: selected ? backgroundlighterSoft : backgroundLight,
-          child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
+        child: Dismissible(
+          child: AnimatedContainer(
+            height: selected ? 65 : 59,
+            color: selected ? backgroundlighterSoft : backgroundLight,
+            child: Column(children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Container(
+                          height: 45,
+                          padding: EdgeInsets.only(
+                              left: 12.0, right: 12.0, top: 5, bottom: 5),
+                          child: Image.network(
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/800px-Flag_of_Europe.svg.png',
+                              fit: BoxFit.cover),
+                        )
+                      ]),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        height: 45,
-                        padding: EdgeInsets.only(
-                            left: 12.0, right: 12.0, top: 5, bottom: 5),
-                        child: Image.network(
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/800px-Flag_of_Europe.svg.png',
-                            fit: BoxFit.cover),
+                      Text(
+                        shortcut,
+                        style: TextStyle(fontSize: 20, color: fontColorDark),
                       )
-                    ]),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      shortcut,
-                      style: TextStyle(fontSize: 20, color: fontColorDark),
-                    )
-                  ],
-                ),
-                Expanded(
-                    child: Align(
-                        alignment: FractionalOffset.bottomRight,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Container(
-                              padding: topPadding,
-                              child: calculationText,
-                            ),
-                            Container(
-                              padding: new EdgeInsets.only(right: 10.0),
-                              child: Text(
-                                value.toString(),
-                                style: TextStyle(
-                                    fontSize: 22, color: fontColorDark),
-                                textDirection: TextDirection.rtl,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.fade,
-                                maxLines: 1,
-                                softWrap: false,
+                    ],
+                  ),
+                  Expanded(
+                      child: Align(
+                          alignment: FractionalOffset.bottomRight,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Container(
+                                padding: topPadding,
+                                child: calculationText,
                               ),
-                            ),
-                            Container(
-                              padding: bottomPadding,
-                              child: Text(
-                                name,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontSize: 11, color: fontColorDark),
-                                textDirection: TextDirection.rtl,
-                                overflow: TextOverflow.fade,
-                                maxLines: 1,
-                                softWrap: false,
+                              Container(
+                                padding: new EdgeInsets.only(right: 10.0),
+                                child: Text(
+                                  value.toString(),
+                                  style: TextStyle(
+                                      fontSize: 22, color: fontColorDark),
+                                  textDirection: TextDirection.rtl,
+                                  textAlign: TextAlign.right,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                ),
                               ),
-                            ),
-                          ],
-                        )))
-              ],
-            ),
-          ]),
-          duration: Duration(milliseconds: 400),
+                              Container(
+                                padding: bottomPadding,
+                                child: Text(
+                                  name,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      fontSize: 11, color: fontColorDark),
+                                  textDirection: TextDirection.rtl,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                ),
+                              ),
+                            ],
+                          )))
+                ],
+              ),
+            ]),
+            duration: Duration(milliseconds: 400),
+          ),
+          onDismissed: (direction) {},
+          confirmDismiss: (DismissDirection direction) async {
+            storage.caclucatorPageController.animateToPage(
+              direction == DismissDirection.startToEnd ? 0 : 2,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeInOut,
+            );
+            return null;
+          },
+          background: Container(color: Colors.green),
+          key: Key(id.toString()),
         ));
   }
 }

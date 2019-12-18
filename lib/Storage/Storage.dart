@@ -41,10 +41,22 @@ class Storage extends ChangeNotifier {
   );
   PageController get controller => _controller;
 
+  PageController _caclucatorPageController = PageController(
+    initialPage: 1,
+  );
+  PageController get caclucatorPageController => _caclucatorPageController;
+
   int _page = 1;
   int get page => _page;
   set page(int value) {
     _page = value;
+    notifyListeners();
+  }
+
+  int _caclucatorPage = 1;
+  int get caclucatorPage => _caclucatorPage;
+  set caclucatorPage(int value) {
+    _caclucatorPage = value;
     notifyListeners();
   }
 
