@@ -24,6 +24,7 @@ class CurrenceRow extends StatelessWidget {
     Color backgroundlighterSoft =
         storage.thems[storage.themIndex.toInt()].backgrounds.lighterSoft;
     Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
+    Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
 
     bool selected = storage.currency == id;
     EdgeInsets topPadding = new EdgeInsets.only(right: 10.0);
@@ -136,7 +137,28 @@ class CurrenceRow extends StatelessWidget {
             );
             return null;
           },
-          background: Container(color: Colors.green),
+          background: Container(
+              color: Colors.green,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 14.0),
+                    child: Text(
+                      "Change currency",
+                      style: TextStyle(fontSize: 17, color: fontColorLight),
+                    )),
+              )),
+          secondaryBackground: Container(
+              color: Colors.blueAccent,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                    padding: EdgeInsets.only(right: 14.0),
+                    child: Text(
+                      "Currency information",
+                      style: TextStyle(fontSize: 17, color: fontColorLight),
+                    )),
+              )),
           key: Key(id.toString()),
         ));
   }
