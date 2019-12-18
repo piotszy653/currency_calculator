@@ -2,7 +2,7 @@ import 'package:currency_calculator/Storage/Storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChangeThemDialog {
+class ChangeDefaultCurrencyValueDialog {
   void openDialog(context) {
     final Storage storage = Provider.of<Storage>(context);
     Color backgroundLight =
@@ -21,72 +21,86 @@ class ChangeThemDialog {
           content: new Column(
             children: <Widget>[
               ListTile(
-                title: Text("Dark orange", style: textStyle),
-                onTap: () {
-                  handleOnChange(0, context, storage);
-                },
-                leading: Radio(
-                  value: 0,
-                  activeColor: backgroundDark,
-                  groupValue: storage.themIndex,
-                  onChanged: (int value) {
-                    handleOnChange(0, context, storage);
-                  },
-                ),
-              ),
-              ListTile(
-                title: Text("Yellow", style: textStyle),
+                title: Text("1", style: textStyle),
                 onTap: () {
                   handleOnChange(1, context, storage);
                 },
                 leading: Radio(
                   value: 1,
                   activeColor: backgroundDark,
-                  groupValue: storage.themIndex,
+                  groupValue: storage.defaultCurrencyValue,
                   onChanged: (int value) {
                     handleOnChange(1, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("Pink", style: textStyle),
+                title: Text("10", style: textStyle),
                 onTap: () {
-                  handleOnChange(2, context, storage);
+                  handleOnChange(10, context, storage);
                 },
                 leading: Radio(
-                  value: 2,
+                  value: 10,
                   activeColor: backgroundDark,
-                  groupValue: storage.themIndex,
+                  groupValue: storage.defaultCurrencyValue,
                   onChanged: (int value) {
-                    handleOnChange(2, context, storage);
+                    handleOnChange(10, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("Agresive Red", style: textStyle),
+                title: Text("100", style: textStyle),
                 onTap: () {
-                  handleOnChange(3, context, storage);
+                  handleOnChange(100, context, storage);
                 },
                 leading: Radio(
-                  value: 3,
+                  value: 100,
                   activeColor: backgroundDark,
-                  groupValue: storage.themIndex,
+                  groupValue: storage.defaultCurrencyValue,
                   onChanged: (int value) {
-                    handleOnChange(3, context, storage);
+                    handleOnChange(100, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("Brown", style: textStyle),
+                title: Text("1000", style: textStyle),
                 onTap: () {
-                  handleOnChange(4, context, storage);
+                  handleOnChange(1000, context, storage);
                 },
                 leading: Radio(
-                  value: 4,
+                  value: 1000,
                   activeColor: backgroundDark,
-                  groupValue: storage.themIndex,
+                  groupValue: storage.defaultCurrencyValue,
                   onChanged: (int value) {
-                    handleOnChange(4, context, storage);
+                    handleOnChange(1000, context, storage);
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text("10 000", style: textStyle),
+                onTap: () {
+                  handleOnChange(10000, context, storage);
+                },
+                leading: Radio(
+                  value: 10000,
+                  activeColor: backgroundDark,
+                  groupValue: storage.defaultCurrencyValue,
+                  onChanged: (int value) {
+                    handleOnChange(10000, context, storage);
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text("100 000", style: textStyle),
+                onTap: () {
+                  handleOnChange(100000, context, storage);
+                },
+                leading: Radio(
+                  value: 100000,
+                  activeColor: backgroundDark,
+                  groupValue: storage.defaultCurrencyValue,
+                  onChanged: (int value) {
+                    handleOnChange(100000, context, storage);
                   },
                 ),
               )
@@ -106,8 +120,7 @@ class ChangeThemDialog {
   }
 
   handleOnChange(int value, BuildContext context, Storage storage) {
-    storage.themIndex = value;
-    Navigator.of(context).pop();
+    storage.defaultCurrencyValue = value;
     Navigator.of(context).pop();
   }
 }

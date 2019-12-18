@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_bar.dart';
 import 'change_them.dart';
+import 'default_currency_value.dart';
 
 class SettingsPage {
   mainBottomSheet(BuildContext context) {
@@ -12,9 +13,11 @@ class SettingsPage {
     Color backgroundLight =
         storage.thems[storage.themIndex.toInt()].backgrounds.lighter;
     Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
-    TextStyle recordTextStyle = TextStyle(fontSize: 14, color: fontColorDark, fontWeight: FontWeight.w300);
+    TextStyle recordTextStyle = TextStyle(
+        fontSize: 14, color: fontColorDark, fontWeight: FontWeight.w300);
     ChangeThemDialog changeThemDialog = new ChangeThemDialog();
-
+    ChangeDefaultCurrencyValueDialog changeDefaultCurrencyValueDialog =
+        new ChangeDefaultCurrencyValueDialog();
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -37,6 +40,13 @@ class SettingsPage {
                       title: Text('Change Them', style: recordTextStyle),
                       onTap: () {
                         changeThemDialog.openDialog(context);
+                      },
+                    ),
+                    ListTile(
+                      title: Text('Change default currency value.',
+                          style: recordTextStyle),
+                      onTap: () {
+                        changeDefaultCurrencyValueDialog.openDialog(context);
                       },
                     ),
                   ])),

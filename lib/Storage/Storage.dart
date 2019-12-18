@@ -54,6 +54,13 @@ class Storage extends ChangeNotifier {
     _currency = value;
     notifyListeners();
   }
+
+  int _defaultCurrencyValue = 100;
+  int get defaultCurrencyValue => _defaultCurrencyValue;
+  set defaultCurrencyValue(int value) {
+    _defaultCurrencyValue = value;
+    notifyListeners();
+  }
 }
 
 class Them {
