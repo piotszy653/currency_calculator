@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import './dto/ExchangeRate.dart';
 import 'dart:convert';
 
+class CurrencyApi{
+
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
 
@@ -59,5 +61,5 @@ Future<String> fetchFlagByCurrency(String currency) async{
     throw Exception('Failed to load flag for ' + currency);
   }
 }
-
+}
 
