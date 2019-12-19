@@ -7,14 +7,27 @@ import 'dart:convert';
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
 
-Future<ExchangeRate> fetchLatestExchangeRate(String base) async {
+Future<List<Currency>> fetchLatestCurrencyRate(String base) async {
   final response =
       await http.get('https://api.exchangeratesapi.io/latest?base='+base);
 
   if (response.statusCode == 200) {
-    return ExchangeRate.fromJson(json.decode(response.body));
+    ExchangeRate rate = ExchangeRate.fromJson(json.decode(response.body));
+    List<Currency> currencies = new List();
+    List<String> keys = new List();
+    rate.rates.keys.forEach((key) => {keys.add(key)});
+    for(String key in keys){
+      String currencyFlagUrl = await fetchFlagByCurrency(key);
+      currencies.add(new Currency(
+        base: rate.base,
+        symbol: key,
+        logoUrl: currencyFlagUrl,
+        price: rate.rates.remove(key)
+      ));
+    }
+    return currencies;
   } else {
-    throw Exception('Failed to load exchange rate');
+    throw Exception('Failed to load currencies');
   }
 }
 
@@ -26,7 +39,7 @@ Future<List<Currency>> fetchLatestCryptoCurrenciesRate(String base, int numberOf
   if (response.statusCode == 200) {
     return CryptoCurrencyRateList.fromJson(json.decode(response.body), base, numberOfCryptoCurrencies).rates;
   } else {
-    throw Exception('Failed to load exchange rate');
+    throw Exception('Failed to load crypto currencies');
   }
 }
 
