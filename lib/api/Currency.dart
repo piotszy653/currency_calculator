@@ -14,4 +14,10 @@ class Currency{
       price: double.parse(json['price'])
     );
   }
+
+  num rate(Currency to, {int amount = 1}){
+  if(this.base != to.base)
+  throw Exception("not same base in currencies:" + this.symbol+"-" + this.base +", " + to.symbol + "-" + to.base);
+  return amount * this.price/to.price;
+}
 }
