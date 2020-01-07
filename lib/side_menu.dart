@@ -17,6 +17,14 @@ class SideMenu extends StatelessWidget {
     TextStyle recordTextStyle = TextStyle(fontSize: 13, color: fontColorDark);
     SettingsPage settingsPage = new SettingsPage();
 
+    void _launchURL(String url) async {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
     return Drawer(
         child: Column(
       children: <Widget>[
@@ -40,13 +48,21 @@ class SideMenu extends StatelessWidget {
                       title: Text('Tips and Questions', style: recordTextStyle),
                     ),
                     ListTile(
-                      leading: Icon(Icons.chat, color: fontColorDark),
-                      title: Text('Opinion', style: recordTextStyle),
-                    ),
+                        leading: Icon(Icons.chat, color: fontColorDark),
+                        title: GestureDetector(
+                          onTap: () {
+                            _launchURL(
+                              "https://www.messenger.com/t/104904347709584");
+                          },
+                          child: Text('Opinion', style: recordTextStyle),
+                        )),
                     ListTile(
                       leading: Icon(Icons.thumb_up, color: fontColorDark),
-                      title: new RaisedButton(
-                        onPressed: _launchURL("https://www.facebook.com/Math-Currency-104904347709584/?modal=admin_todo_tour"),
+                      title: GestureDetector(
+                        onTap: () {
+                          _launchURL(
+                              "https://www.facebook.com/Math-Currency-104904347709584/?modal=admin_todo_tour");
+                        },
                         child: Text('Like Us', style: recordTextStyle),
                       ),
                     ),
@@ -66,13 +82,5 @@ class SideMenu extends StatelessWidget {
                 )))
       ],
     ));
-  }
-}
-
-_launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
   }
 }
