@@ -15,14 +15,10 @@ class HigherAppBar extends StatelessWidget {
     Color backgroundDark =
         storage.thems[storage.themIndex.toInt()].backgrounds.darker;
 
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 34,
-          color: backgroundDark,
-        ),
-        MainAppBar(backButton: backButton, returnCallback: returnCallback, title: title),
-      ],
+    return PreferredSize(
+      preferredSize: Size.fromHeight(150.0),
+      child: MainAppBar(
+          backButton: backButton, returnCallback: returnCallback, title: title),
     );
   }
 }

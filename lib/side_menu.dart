@@ -1,4 +1,5 @@
 import 'package:currency_calculator/settings/settings.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Storage/Storage.dart';
@@ -44,7 +45,10 @@ class SideMenu extends StatelessWidget {
                     ),
                     ListTile(
                       leading: Icon(Icons.thumb_up, color: fontColorDark),
-                      title: Text('Like Us', style: recordTextStyle),
+                      title: new RaisedButton(
+                        onPressed: _launchURL("https://www.facebook.com/Math-Currency-104904347709584/?modal=admin_todo_tour"),
+                        child: Text('Like Us', style: recordTextStyle),
+                      ),
                     ),
                     Divider(),
                     Expanded(
@@ -62,5 +66,13 @@ class SideMenu extends StatelessWidget {
                 )))
       ],
     ));
+  }
+}
+
+_launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

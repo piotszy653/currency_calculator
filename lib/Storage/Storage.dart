@@ -1,4 +1,6 @@
+import 'package:currency_calculator/api/Currency.dart';
 import 'package:flutter/material.dart';
+import '../api/CurrencyApiManager.dart';
 
 class Storage extends ChangeNotifier {
   List<String> _pages = [
@@ -73,6 +75,12 @@ class Storage extends ChangeNotifier {
     _defaultCurrencyValue = value;
     notifyListeners();
   }
+
+  // static CurrencyApiManager currencyApiManager = new CurrencyApiManager();
+  // static List<Currency> internationalCurrencies = currencyApiManager.fetchLatestCurrencyRate();
+  // List<Currency> cryptoCurrencies = currencyApiManager.fetchLatestCryptoCurrenciesRate();
+  // List<Currency> actualShowCurrencies = [
+  //   internationalCurrencies[0]];
 }
 
 class Them {

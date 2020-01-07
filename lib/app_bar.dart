@@ -6,7 +6,11 @@ class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool backButton;
   final VoidCallback returnCallback;
   final String title;
-  MainAppBar({Key key, bool backButton = false, VoidCallback returnCallback, String title})
+  MainAppBar(
+      {Key key,
+      bool backButton = false,
+      VoidCallback returnCallback,
+      String title})
       : preferredSize = Size.fromHeight(kToolbarHeight),
         this.backButton = backButton,
         this.returnCallback = returnCallback,
@@ -52,15 +56,17 @@ class _MainAppBarState extends State<MainAppBar> {
           onTap: returnCallback, child: new Icon(Icons.arrow_back));
     }
 
-    return AppBar(
-      title: Text(title != null ? title : storage.appName.toString(),
-          style: TextStyle(color: fontColorLight)),
-      elevation: 0.0,
-      backgroundColor:
-          storage.thems[storage.themIndex.toInt()].backgrounds.darker,
-      iconTheme: new IconThemeData(color: fontColorLight),
-      actions: actions,
-      leading: leading,
-    );
+    return PreferredSize(
+        preferredSize: Size.fromHeight(350.0),
+        child: AppBar(
+          title: Text(title != null ? title : storage.appName.toString(),
+              style: TextStyle(color: fontColorLight)),
+          elevation: 0.0,
+          backgroundColor:
+              storage.thems[storage.themIndex.toInt()].backgrounds.darker,
+          iconTheme: new IconThemeData(color: fontColorLight),
+          actions: actions,
+          leading: leading,
+        ));
   }
 }
