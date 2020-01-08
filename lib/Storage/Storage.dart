@@ -6,8 +6,7 @@ import '../api/CurrencyApiManager.dart';
 class Storage extends ChangeNotifier {
   List<String> _pages = [
     'International payments',
-    'Cryptocurrencies',
-    'Diagrams'
+    'Cryptocurrencies'
   ];
   List<String> get pages => _pages;
   set pages(List<String> value) {
@@ -49,6 +48,11 @@ class Storage extends ChangeNotifier {
   );
   PageController get caclucatorPageController => _caclucatorPageController;
 
+  PageController _changeCurrencyPageController = PageController(
+    initialPage: 1,
+  );
+  PageController get changeCurrencyPageController => _changeCurrencyPageController;
+
   int _page = 1;
   int get page => _page;
   set page(int value) {
@@ -70,7 +74,7 @@ class Storage extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _defaultCurrencyValue = 100;
+  int _defaultCurrencyValue = 1;
   int get defaultCurrencyValue => _defaultCurrencyValue;
   set defaultCurrencyValue(int value) {
     _defaultCurrencyValue = value;
@@ -78,14 +82,14 @@ class Storage extends ChangeNotifier {
   }
 
   String _calculationInput = "";
-  String _calculatedValue = '0';
+  String _calculatedValue = '1';
   Parser p = new Parser();
   get calculationInput => _calculationInput;
   get calculatedValue => _calculatedValue;
   set calculationInput(String value) {
     _calculationInput = value;
     try {
-      Expression exp = p.parse(value.replaceAll('[', '(').replaceAll(']', ')'));
+      Expression exp = p.parse(value.replaceAll('[', '(').replaceAll(']', ')').replaceAll(',', '.'));
       _calculatedValue = exp.evaluate(EvaluationType.REAL, null).toString();
       print(_calculatedValue);
     } catch (e) {

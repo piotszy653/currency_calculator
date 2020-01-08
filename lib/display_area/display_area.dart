@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DisplayArea extends StatelessWidget {
+  bool changeCurrency;
+  DisplayArea({this.changeCurrency});
+
   @override
   Widget build(BuildContext context) {
     final Storage storage = Provider.of<Storage>(context);
@@ -16,7 +19,7 @@ class DisplayArea extends StatelessWidget {
     return Expanded(
       child: PageView(
         onPageChanged: onPageChanged,
-        controller: storage.controller,
+        controller: changeCurrency != null && changeCurrency ? storage.changeCurrencyPageController : storage.controller,
         children: storage.pages
             .map((page) => Container(
                   color: backgroundLight,
