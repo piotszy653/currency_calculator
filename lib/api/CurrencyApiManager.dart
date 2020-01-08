@@ -8,6 +8,25 @@ class CurrencyApiManager {
 
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
+List<Currency> currencies;
+List<Currency> cryptoCurrencies;
+
+onValueCurrencies(dynamic value){
+  currencies = value;
+}
+
+onValueCryptoCurrencies(dynamic value){
+  cryptoCurrencies = value;
+}
+
+List<Currency> getCurrenciesRate({String base = 'EUR'}){
+  fetchLatestCurrencyRate(base: base).then(onValueCurrencies);
+}
+
+
+List<Currency> getCryptoCurrenciesRate({String base = 'EUR', int numberOfCryptoCurrencies = 40}){
+  fetchLatestCryptoCurrenciesRate(base: base, numberOfCryptoCurrencies: numberOfCryptoCurrencies).then(onValueCryptoCurrencies);
+}
 
 Future<List<Currency>> fetchLatestCurrencyRate({String base = 'EUR'}) async {
   final response =
