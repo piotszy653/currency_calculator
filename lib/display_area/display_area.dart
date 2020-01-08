@@ -14,7 +14,11 @@ class DisplayArea extends StatelessWidget {
         storage.thems[storage.themIndex.toInt()].backgrounds.lighter;
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
     void onPageChanged(int value) {
-      storage.page = value;
+      if (changeCurrency != null && changeCurrency) {
+        storage.changeCurrencyPage = value;
+      } else {
+        storage.page = value;
+      }
     }
 
     return Expanded(
@@ -37,22 +41,38 @@ class DisplayArea extends StatelessWidget {
                     }
                     List<Currency> currencys = snapshot.data ?? [];
                     return Container(
-                      color: backgroundLight,
+                        color: backgroundLight,
                         child: ListView.builder(
                             itemCount: currencys.length,
                             itemBuilder: (context, index) {
                               Currency currency = currencys[index];
                               return new ListTile(
-                                contentPadding: EdgeInsets.fromLTRB(55.0, 0, 0, 0),
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(55.0, 0, 0, 0),
                                 leading:
                                     Image.network(currency.logoUrl, height: 25),
                                 // trailing: currency.icon,
                                 title: new Text(currency.symbol,
-                                    style: TextStyle(fontSize: 14, color: fontColorLight)),
-                                // onTap: () {
-                                //   Navigator.push(context,
-                                //       new MaterialPageRoute(builder: (context) => new Home()));
-                                // },
+                                    style: TextStyle(
+                                        fontSize: 14, color: fontColorLight)),
+                                onTap: () {
+                                  if (!changeCurrency) {
+                                    return;
+                                  }
+                                  if (!storage.actualShowCurrenciesShortcuts
+                                      .contains(currency.symbol)) {
+                                    storage.actualShowCurrenciesShortcuts[
+                                            storage
+                                                .actualChangingCurrencyIndex] =
+                                        currency.symbol;
+                                  }
+                                  storage.caclucatorPageController
+                                      .animateToPage(
+                                    1,
+                                    duration: const Duration(milliseconds: 100),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
                               );
                             }));
                   }))

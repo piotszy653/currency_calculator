@@ -16,7 +16,8 @@ class Navigation extends StatelessWidget {
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
 
     BoxDecoration _navigationBorder(int index) {
-      if (storage.page == index) {
+      int page = changeCurrency != null && changeCurrency ? storage.changeCurrencyPage : storage.page;
+      if (page == index) {
         return BoxDecoration(
             border: Border(
                 bottom: BorderSide(color: backgroundLighter, width: 4.0)));
@@ -37,6 +38,7 @@ class Navigation extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: storage.pages
               .map((page) => Expanded(
+                  flex: page == 'International payments' ? 3 : 2,
                   child: GestureDetector(
                       onTap: () {
                         pageController.animateToPage(

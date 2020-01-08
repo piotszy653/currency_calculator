@@ -130,6 +130,9 @@ class CurrenceRow extends StatelessWidget {
           ),
           onDismissed: (direction) {},
           confirmDismiss: (DismissDirection direction) async {
+            if(direction == DismissDirection.startToEnd) {
+              storage.actualChangingCurrencyIndex = storage.actualShowCurrenciesShortcuts.indexOf(shortcut);
+            }
             storage.caclucatorPageController.animateToPage(
               direction == DismissDirection.startToEnd ? 0 : 2,
               duration: const Duration(milliseconds: 100),

@@ -39,7 +39,7 @@ class Storage extends ChangeNotifier {
   List<Them> get thems => _thems;
 
   PageController _controller = PageController(
-    initialPage: 1,
+    initialPage: 0,
   );
   PageController get controller => _controller;
 
@@ -49,14 +49,21 @@ class Storage extends ChangeNotifier {
   PageController get caclucatorPageController => _caclucatorPageController;
 
   PageController _changeCurrencyPageController = PageController(
-    initialPage: 1,
+    initialPage: 0,
   );
   PageController get changeCurrencyPageController => _changeCurrencyPageController;
 
-  int _page = 1;
+  int _page = 0;
   int get page => _page;
   set page(int value) {
     _page = value;
+    notifyListeners();
+  }
+
+  int _changeCurrencyPage = 0;
+  int get changeCurrencyPage => _changeCurrencyPage;
+  set changeCurrencyPage(int value) {
+    _changeCurrencyPage = value;
     notifyListeners();
   }
 
@@ -78,6 +85,13 @@ class Storage extends ChangeNotifier {
   int get defaultCurrencyValue => _defaultCurrencyValue;
   set defaultCurrencyValue(int value) {
     _defaultCurrencyValue = value;
+    notifyListeners();
+  }
+
+  int _afterTheDecimalPoint = 2;
+  int get afterTheDecimalPoint => _afterTheDecimalPoint;
+  set afterTheDecimalPoint(int value) {
+    _afterTheDecimalPoint = value;
     notifyListeners();
   }
 

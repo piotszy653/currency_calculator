@@ -44,15 +44,10 @@ class CurrenciesArea extends StatelessWidget {
                         index++;
                         if (storage.actualShowCurrenciesShortcuts
                             .contains(currency.symbol)) {
-                              print("---------------------------------");
-                              print(currency.symbol);
-                              print(selectedCurrency.symbol);
-                              print("---------------------------------");
-
                           return CurrenceRow(
                               shortcut: currency.symbol,
                               imageUrl: currency.logoUrl,
-                              value: selectedCurrency.rate(currency, amount: double.parse(storage.calculatedValue)).toStringAsFixed(2),
+                              value: currency.rate(selectedCurrency, amount: double.parse(storage.calculatedValue)).toStringAsFixed(storage.afterTheDecimalPoint),
                               name: "unknown",
                               id: index,
                               top: index == 0 ? true : false);
@@ -63,63 +58,3 @@ class CurrenciesArea extends StatelessWidget {
             }));
   }
 }
-
-// FutureBuilder<List<Currency>>(
-//             future: ,
-//             builder: (context, snapshot) {
-//               if (snapshot.connectionState != ConnectionState.done) {
-//                 // return: show loading widget
-//               }
-//               if (snapshot.hasError) {
-//                 // return: show error widget
-//               }
-//               List<Currency> currencys = snapshot.data ?? [];
-//               return Container(
-//                   color: backgroundLight,
-//                   child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       mainAxisSize: MainAxisSize.max,
-//                       children: currencys.map((currency) {
-//                         if (storage.actualShowCurrenciesShortcuts
-//                             .contains(currency.symbol)) {
-//                           return CurrenceRow(
-//                               shortcut: "GBP",
-//                               name: "Funt szterling",
-//                               value: 200.12,
-//                               id: 0,
-//                               top: true);
-//                         } else {
-//                           return null;
-//                         }
-//                       }).toList()));
-//             })
-
-//Column(
-// mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// mainAxisSize: MainAxisSize.max,
-// children:
-//<Widget>[
-// CurrenceRow(
-//     shortcut: "GBP",
-//     name: "Funt szterling",
-//     value: 200.12,
-//     id: 0,
-//     top: true),
-// rowDivider,
-// CurrenceRow(
-//     shortcut: "GBP", name: "Funt szterling", id: 1, value: 600.13),
-// rowDivider,
-// CurrenceRow(
-//     shortcut: "GBP", name: "Funt szterling", id: 2, value: 76),
-// rowDivider,
-// CurrenceRow(
-//     shortcut: "GBP", name: "Funt szterling", id: 3, value: 839.1),
-// rowDivider,
-// CurrenceRow(
-//     shortcut: "GBP",
-//     name: "Funt szterling",
-//     value: 1600.50,
-//     id: 4,
-//     bottom: true)
-//],
-//)

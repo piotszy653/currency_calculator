@@ -25,7 +25,7 @@ class Calculator {
       );
     }
 
-    showModalBottomSheet(
+    Future<void> bottomSheetAwaitClose = showModalBottomSheet(
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
@@ -45,5 +45,6 @@ class Calculator {
                 CurrencieInformationPage(backCallback: backToCalculatorPage)
               ]);
         });
+    bottomSheetAwaitClose.then((void value) => {storage.changeCurrencyPage = 0});
   }
 }
