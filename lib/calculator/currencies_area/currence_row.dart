@@ -5,13 +5,15 @@ import 'package:provider/provider.dart';
 class CurrenceRow extends StatelessWidget {
   String name;
   String shortcut;
-  double value;
+  String imageUrl;
+  String value;
   int id;
   bool top, bottom;
   CurrenceRow(
       {this.shortcut,
       this.name,
       this.value,
+      this.imageUrl,
       this.top = false,
       this.bottom = false,
       this.id});
@@ -25,8 +27,8 @@ class CurrenceRow extends StatelessWidget {
         storage.thems[storage.themIndex.toInt()].backgrounds.lighterSoft;
     Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
-    
-    bool selected = storage.currency == id;
+
+    bool selected = storage.currency == shortcut;
     EdgeInsets topPadding = new EdgeInsets.only(right: 10.0);
     EdgeInsets bottomPadding = new EdgeInsets.only(right: 10.0);
     Text calculationText;
@@ -51,7 +53,7 @@ class CurrenceRow extends StatelessWidget {
 
     return GestureDetector(
         onTap: () {
-          storage.currency = id;
+          storage.currency = shortcut;
         },
         child: Dismissible(
           child: AnimatedContainer(
@@ -69,9 +71,7 @@ class CurrenceRow extends StatelessWidget {
                           height: 45,
                           padding: EdgeInsets.only(
                               left: 12.0, right: 12.0, top: 5, bottom: 5),
-                          child: Image.network(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/800px-Flag_of_Europe.svg.png',
-                              fit: BoxFit.cover),
+                          child: Image.network(imageUrl, fit: BoxFit.cover),
                         )
                       ]),
                   Column(
@@ -97,7 +97,9 @@ class CurrenceRow extends StatelessWidget {
                               Container(
                                 padding: new EdgeInsets.only(right: 10.0),
                                 child: Text(
-                                  selected ? storage.calculatedValue : value.toString(),
+                                  selected
+                                      ? storage.calculatedValue
+                                      : value.toString(),
                                   style: TextStyle(
                                       fontSize: 22, color: fontColorDark),
                                   textAlign: TextAlign.right,

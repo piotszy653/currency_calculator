@@ -67,9 +67,9 @@ class Storage extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _currency = 0;
-  int get currency => _currency;
-  set currency(int value) {
+  String _currency = "PLN";
+  String get currency => _currency;
+  set currency(String value) {
     _currency = value;
     notifyListeners();
   }
@@ -91,7 +91,6 @@ class Storage extends ChangeNotifier {
     try {
       Expression exp = p.parse(value.replaceAll('[', '(').replaceAll(']', ')').replaceAll(',', '.'));
       _calculatedValue = exp.evaluate(EvaluationType.REAL, null).toString();
-      print(_calculatedValue);
     } catch (e) {
       print(e.toString());
     }
@@ -102,6 +101,7 @@ class Storage extends ChangeNotifier {
   }
 
   static CurrencyApiManager _currencyApiManager = new CurrencyApiManager();
+  get currencyApiManager => _currencyApiManager;
 
   Future<List<Currency>> _internationalCurrencies =
       _currencyApiManager.fetchLatestCurrencyRate();
@@ -118,7 +118,7 @@ class Storage extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> _actualShowCurrenciesShortcuts = ["EUR", "EUR", "EUR", "EUR", "EUR"];
+  List<String> _actualShowCurrenciesShortcuts = ["EUR", "HUF", "PLN", "USD", "CHF"];
   get actualShowCurrenciesShortcuts => _actualShowCurrenciesShortcuts;
   set actualShowCurrenciesShortcuts(String value) {
     _actualShowCurrenciesShortcuts[_actualChangingCurrencyIndex] = value;

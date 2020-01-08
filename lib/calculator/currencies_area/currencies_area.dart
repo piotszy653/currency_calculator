@@ -19,12 +19,10 @@ class CurrenciesArea extends StatelessWidget {
       indent: 80,
     );
 
-    Future<List<Currency>> allCurrencies = storage.internationalCurrencies + storage.cryptoCurrencies;
-
     return Container(
         color: backgroundLight,
         child: FutureBuilder<List<Currency>>(
-            future: allCurrencies,
+            future: storage.internationalCurrencies,
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 // return: show loading widget
@@ -33,27 +31,68 @@ class CurrenciesArea extends StatelessWidget {
                 // return: show error widget
               }
               List<Currency> currencys = snapshot.data ?? [];
+              Currency selectedCurrency = currencys.fold(new Currency(), (val, el) => el.symbol == storage.currency ? el : val);
+              print(selectedCurrency.symbol);
+              int index = -1;
+
               return Container(
                   color: backgroundLight,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.max,
                       children: currencys.map((currency) {
+                        index++;
                         if (storage.actualShowCurrenciesShortcuts
                             .contains(currency.symbol)) {
+                              print("---------------------------------");
+                              print(currency.symbol);
+                              print(selectedCurrency.symbol);
+                              print("---------------------------------");
+
                           return CurrenceRow(
-                              shortcut: "GBP",
-                              name: "Funt szterling",
-                              value: 200.12,
-                              id: 0,
-                              top: true);
+                              shortcut: currency.symbol,
+                              imageUrl: currency.logoUrl,
+                              value: selectedCurrency.rate(currency, amount: double.parse(storage.calculatedValue)).toStringAsFixed(2),
+                              name: "unknown",
+                              id: index,
+                              top: index == 0 ? true : false);
                         } else {
-                          return null;
+                          return Container();
                         }
                       }).toList()));
             }));
   }
 }
+
+// FutureBuilder<List<Currency>>(
+//             future: ,
+//             builder: (context, snapshot) {
+//               if (snapshot.connectionState != ConnectionState.done) {
+//                 // return: show loading widget
+//               }
+//               if (snapshot.hasError) {
+//                 // return: show error widget
+//               }
+//               List<Currency> currencys = snapshot.data ?? [];
+//               return Container(
+//                   color: backgroundLight,
+//                   child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       mainAxisSize: MainAxisSize.max,
+//                       children: currencys.map((currency) {
+//                         if (storage.actualShowCurrenciesShortcuts
+//                             .contains(currency.symbol)) {
+//                           return CurrenceRow(
+//                               shortcut: "GBP",
+//                               name: "Funt szterling",
+//                               value: 200.12,
+//                               id: 0,
+//                               top: true);
+//                         } else {
+//                           return null;
+//                         }
+//                       }).toList()));
+//             })
 
 //Column(
 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
