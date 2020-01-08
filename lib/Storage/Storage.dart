@@ -101,12 +101,29 @@ class Storage extends ChangeNotifier {
     notifyListeners();
   }
 
-  static CurrencyApiManager currencyApiManager = new CurrencyApiManager();
-  static Future<List<Currency>> internationalCurrencies =
-      currencyApiManager.fetchLatestCurrencyRate();
-  Future<List<Currency>> cryptoCurrencies =
-      currencyApiManager.fetchLatestCryptoCurrenciesRate();
-  //List<Currency> actualShowCurrencies = [internationalCurrencies]
+  static CurrencyApiManager _currencyApiManager = new CurrencyApiManager();
+
+  Future<List<Currency>> _internationalCurrencies =
+      _currencyApiManager.fetchLatestCurrencyRate();
+  get internationalCurrencies => _internationalCurrencies;
+
+  Future<List<Currency>> _cryptoCurrencies =
+      _currencyApiManager.fetchLatestCryptoCurrenciesRate();
+  get cryptoCurrencies => _cryptoCurrencies;
+
+  int _actualChangingCurrencyIndex = 0;
+  get actualChangingCurrencyIndex => _actualChangingCurrencyIndex;
+  set actualChangingCurrencyIndex(int value) {
+    _actualChangingCurrencyIndex = value;
+    notifyListeners();
+  }
+
+  List<String> _actualShowCurrenciesShortcuts = ["EUR", "EUR", "EUR", "EUR", "EUR"];
+  get actualShowCurrenciesShortcuts => _actualShowCurrenciesShortcuts;
+  set actualShowCurrenciesShortcuts(String value) {
+    _actualShowCurrenciesShortcuts[_actualChangingCurrencyIndex] = value;
+    notifyListeners();
+  }
 }
 
 class Them {
