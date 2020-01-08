@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Storage/Storage.dart';
+import 'tipsPage.dart';
 
 class SideMenu extends StatelessWidget {
   @override
@@ -16,6 +17,7 @@ class SideMenu extends StatelessWidget {
     Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
     TextStyle recordTextStyle = TextStyle(fontSize: 13, color: fontColorDark);
     SettingsPage settingsPage = new SettingsPage();
+    TipsPage tipsPage = new TipsPage();
 
     void _launchURL(String url) async {
       if (await canLaunch(url)) {
@@ -46,6 +48,9 @@ class SideMenu extends StatelessWidget {
                     ListTile(
                       leading: Icon(Icons.help, color: fontColorDark),
                       title: Text('Tips and Questions', style: recordTextStyle),
+                      onTap: () {
+                        tipsPage.mainBottomSheet(context);
+                      },
                     ),
                     ListTile(
                         leading: Icon(Icons.chat, color: fontColorDark),

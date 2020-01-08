@@ -16,7 +16,7 @@ class HigherAppBar extends StatelessWidget {
         storage.thems[storage.themIndex.toInt()].backgrounds.darker;
 
     return PreferredSize(
-      preferredSize: Size.fromHeight(150.0),
+      preferredSize: Size.fromHeight(350.0),
       child: MainAppBar(
           backButton: backButton, returnCallback: returnCallback, title: title),
     );

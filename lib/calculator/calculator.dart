@@ -2,9 +2,9 @@ import 'package:currency_calculator/calculator/currencies_area/currencies_area.d
 import 'package:currency_calculator/calculator/higher_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './calculator_keyboard.dart';
 import '../Storage/Storage.dart';
 import './higher_app_bar.dart';
+import 'calculator_keyboard/calculator_keyboard.dart';
 import 'change_currencie.dart';
 import 'currencie_information.dart';
 

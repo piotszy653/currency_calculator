@@ -27,6 +27,7 @@ dependencies:
   provider: ^3.2.0
 
   url_launcher: ^5.0.2
+  math_expressions: ^1.1.1
 
 dev_dependencies:
   flutter_test:

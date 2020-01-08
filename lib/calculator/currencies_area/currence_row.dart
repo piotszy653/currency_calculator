@@ -25,7 +25,7 @@ class CurrenceRow extends StatelessWidget {
         storage.thems[storage.themIndex.toInt()].backgrounds.lighterSoft;
     Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
-
+    
     bool selected = storage.currency == id;
     EdgeInsets topPadding = new EdgeInsets.only(right: 10.0);
     EdgeInsets bottomPadding = new EdgeInsets.only(right: 10.0);
@@ -40,9 +40,8 @@ class CurrenceRow extends StatelessWidget {
 
     if (selected) {
       calculationText = Text(
-        "sdsd",
+        storage.calculationInput,
         style: TextStyle(fontSize: 11, color: fontColorDark),
-        textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         overflow: TextOverflow.fade,
         maxLines: 1,
@@ -98,10 +97,9 @@ class CurrenceRow extends StatelessWidget {
                               Container(
                                 padding: new EdgeInsets.only(right: 10.0),
                                 child: Text(
-                                  value.toString(),
+                                  selected ? storage.calculatedValue : value.toString(),
                                   style: TextStyle(
                                       fontSize: 22, color: fontColorDark),
-                                  textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,
                                   overflow: TextOverflow.fade,
                                   maxLines: 1,

@@ -1,5 +1,6 @@
 import 'package:currency_calculator/api/Currency.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 import '../api/CurrencyApiManager.dart';
 
 class Storage extends ChangeNotifier {
@@ -76,11 +77,32 @@ class Storage extends ChangeNotifier {
     notifyListeners();
   }
 
-  // static CurrencyApiManager currencyApiManager = new CurrencyApiManager();
-  // static List<Currency> internationalCurrencies = currencyApiManager.fetchLatestCurrencyRate();
-  // List<Currency> cryptoCurrencies = currencyApiManager.fetchLatestCryptoCurrenciesRate();
-  // List<Currency> actualShowCurrencies = [
-  //   internationalCurrencies[0]];
+  String _calculationInput = "";
+  String _calculatedValue = '0';
+  Parser p = new Parser();
+  get calculationInput => _calculationInput;
+  get calculatedValue => _calculatedValue;
+  set calculationInput(String value) {
+    _calculationInput = value;
+    try {
+      Expression exp = p.parse(value.replaceAll('[', '(').replaceAll(']', ')'));
+      _calculatedValue = exp.evaluate(EvaluationType.REAL, null).toString();
+      print(_calculatedValue);
+    } catch (e) {
+      print(e.toString());
+    }
+    if(value == "") {
+      _calculatedValue = _defaultCurrencyValue.toString();
+    }
+    notifyListeners();
+  }
+
+  static CurrencyApiManager currencyApiManager = new CurrencyApiManager();
+  static Future<List<Currency>> internationalCurrencies =
+      currencyApiManager.fetchLatestCurrencyRate();
+  Future<List<Currency>> cryptoCurrencies =
+      currencyApiManager.fetchLatestCryptoCurrenciesRate();
+  //List<Currency> actualShowCurrencies = [internationalCurrencies]
 }
 
 class Them {
