@@ -56,17 +56,14 @@ class _MainAppBarState extends State<MainAppBar> {
           onTap: returnCallback, child: new Icon(Icons.arrow_back));
     }
 
-    return PreferredSize(
-        preferredSize: Size.fromHeight(350.0),
-        child: AppBar(
-          title: Text(title != null ? title : storage.appName.toString(),
-              style: TextStyle(color: fontColorLight)),
-          elevation: 0.0,
-          backgroundColor:
-              storage.thems[storage.themIndex.toInt()].backgrounds.darker,
-          iconTheme: new IconThemeData(color: fontColorLight),
-          actions: actions,
-          leading: leading,
-        ));
+    return AppBar(
+      title: Text(title != null ? title : storage.appName.toString(),
+          style: TextStyle(color: fontColorLight)),
+      elevation: 0.0,
+      backgroundColor: storage.thems[storage.themIndex.toInt()].backgrounds.darker,
+      iconTheme: new IconThemeData(color: fontColorLight),
+      actions: actions,
+      leading: leading,
+    );
   }
 }

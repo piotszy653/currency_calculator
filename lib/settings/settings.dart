@@ -2,6 +2,7 @@ import 'package:currency_calculator/Storage/Storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_bar.dart';
+import 'change_after_points.dart';
 import 'change_them.dart';
 import 'default_currency_value.dart';
 
@@ -18,6 +19,8 @@ class SettingsPage {
     ChangeThemDialog changeThemDialog = new ChangeThemDialog();
     ChangeDefaultCurrencyValueDialog changeDefaultCurrencyValueDialog =
         new ChangeDefaultCurrencyValueDialog();
+    ChangeAfterPointsDialog changeAfterPointsDialog = new ChangeAfterPointsDialog();
+
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -47,6 +50,13 @@ class SettingsPage {
                           style: recordTextStyle),
                       onTap: () {
                         changeDefaultCurrencyValueDialog.openDialog(context);
+                      },
+                    ),
+                    ListTile(
+                      title: Text('Set number of decimal places.',
+                          style: recordTextStyle),
+                      onTap: () {
+                        changeAfterPointsDialog.openDialog(context);
                       },
                     ),
                   ])),

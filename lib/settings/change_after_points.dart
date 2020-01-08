@@ -2,7 +2,7 @@ import 'package:currency_calculator/Storage/Storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChangeDefaultCurrencyValueDialog {
+class ChangeAfterPointsDialog {
   void openDialog(context) {
     final Storage storage = Provider.of<Storage>(context);
     Color backgroundLight =
@@ -17,7 +17,7 @@ class ChangeDefaultCurrencyValueDialog {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: backgroundLight,
-          title: new Text("Change default currency value.", style: textStyle),
+          title: new Text("Set number of decimal places.", style: textStyle),
           content: new Column(
             children: <Widget>[
               ListTile(
@@ -28,79 +28,79 @@ class ChangeDefaultCurrencyValueDialog {
                 leading: Radio(
                   value: 1,
                   activeColor: backgroundDark,
-                  groupValue: storage.defaultCurrencyValue,
+                  groupValue: storage.afterTheDecimalPoint,
                   onChanged: (int value) {
                     handleOnChange(1, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("10", style: textStyle),
+                title: Text("2", style: textStyle),
                 onTap: () {
-                  handleOnChange(10, context, storage);
+                  handleOnChange(2, context, storage);
                 },
                 leading: Radio(
-                  value: 10,
+                  value: 2,
                   activeColor: backgroundDark,
-                  groupValue: storage.defaultCurrencyValue,
+                  groupValue: storage.afterTheDecimalPoint,
                   onChanged: (int value) {
-                    handleOnChange(10, context, storage);
+                    handleOnChange(2, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("100", style: textStyle),
+                title: Text("3", style: textStyle),
                 onTap: () {
-                  handleOnChange(100, context, storage);
+                  handleOnChange(3, context, storage);
                 },
                 leading: Radio(
-                  value: 100,
+                  value: 3,
                   activeColor: backgroundDark,
-                  groupValue: storage.defaultCurrencyValue,
+                  groupValue: storage.afterTheDecimalPoint,
                   onChanged: (int value) {
-                    handleOnChange(100, context, storage);
+                    handleOnChange(3, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("1000", style: textStyle),
+                title: Text("4", style: textStyle),
                 onTap: () {
-                  handleOnChange(1000, context, storage);
+                  handleOnChange(4, context, storage);
                 },
                 leading: Radio(
-                  value: 1000,
+                  value: 4,
                   activeColor: backgroundDark,
-                  groupValue: storage.defaultCurrencyValue,
+                  groupValue: storage.afterTheDecimalPoint,
                   onChanged: (int value) {
-                    handleOnChange(1000, context, storage);
+                    handleOnChange(4, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("10 000", style: textStyle),
+                title: Text("5", style: textStyle),
                 onTap: () {
-                  handleOnChange(10000, context, storage);
+                  handleOnChange(5, context, storage);
                 },
                 leading: Radio(
-                  value: 10000,
+                  value: 5,
                   activeColor: backgroundDark,
-                  groupValue: storage.defaultCurrencyValue,
+                  groupValue: storage.afterTheDecimalPoint,
                   onChanged: (int value) {
-                    handleOnChange(10000, context, storage);
+                    handleOnChange(5, context, storage);
                   },
                 ),
               ),
               ListTile(
-                title: Text("100 000", style: textStyle),
+                title: Text("6", style: textStyle),
                 onTap: () {
-                  handleOnChange(100000, context, storage);
+                  handleOnChange(6, context, storage);
                 },
                 leading: Radio(
-                  value: 100000,
+                  value: 6,
                   activeColor: backgroundDark,
-                  groupValue: storage.defaultCurrencyValue,
+                  groupValue: storage.afterTheDecimalPoint,
                   onChanged: (int value) {
-                    handleOnChange(100000, context, storage);
+                    handleOnChange(6, context, storage);
                   },
                 ),
               )
@@ -120,10 +120,7 @@ class ChangeDefaultCurrencyValueDialog {
   }
 
   handleOnChange(int value, BuildContext context, Storage storage) {
-    storage.defaultCurrencyValue = value;
-    if(storage.calculationInput == "") {
-      storage.calculationInput = "";
-    }
+    storage.afterTheDecimalPoint = value;
     Navigator.of(context).pop();
   }
 }

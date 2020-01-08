@@ -40,21 +40,44 @@ class DisplayArea extends StatelessWidget {
                       // return: show error widget
                     }
                     List<Currency> currencys = snapshot.data ?? [];
+                    currencys.sort((a, b) => a.symbol.compareTo(b.symbol));
+                    String firstGroupLetter = ";";
+                    bool firstAppeard = false;
+
                     return Container(
                         color: backgroundLight,
                         child: ListView.builder(
                             itemCount: currencys.length,
                             itemBuilder: (context, index) {
                               Currency currency = currencys[index];
+                              firstAppeard = false;
+                              if (firstGroupLetter !=
+                                  currency.symbol.toUpperCase()[0]) {
+                                firstGroupLetter =
+                                    currency.symbol.toUpperCase()[0];
+                                firstAppeard = true;
+                              }
                               return new ListTile(
                                 contentPadding:
-                                    EdgeInsets.fromLTRB(55.0, 0, 0, 0),
-                                leading:
-                                    Image.network(currency.logoUrl, height: 25),
-                                // trailing: currency.icon,
-                                title: new Text(currency.symbol,
+                                    EdgeInsets.fromLTRB(35.0, 0, 0, 0),
+                                leading: Text(
+                                    firstAppeard ? firstGroupLetter : "",
                                     style: TextStyle(
-                                        fontSize: 14, color: fontColorLight)),
+                                        fontSize: 20,
+                                        color: fontColorLight,
+                                        fontWeight: FontWeight.w400)),
+                                title: Row(
+                                  children: <Widget>[
+                                    Container(
+                                        width: 42,
+                                        child: Image.network(currency.logoUrl,
+                                            height: 25)),
+                                    Text(currency.symbol,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: fontColorLight)),
+                                  ],
+                                ),
                                 onTap: () {
                                   if (!changeCurrency) {
                                     return;

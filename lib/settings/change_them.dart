@@ -17,7 +17,7 @@ class ChangeThemDialog {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: backgroundLight,
-          title: new Text("Set Them", style: textStyle),
+          title: new Text("Set Them.", style: textStyle),
           content: new Column(
             children: <Widget>[
               ListTile(
