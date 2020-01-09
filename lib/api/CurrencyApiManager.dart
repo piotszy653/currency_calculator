@@ -10,6 +10,15 @@ class CurrencyApiManager {
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
 
+// args in tuple: international, crypto, joined first  and second
+Future<Tuple3<List<Currency>, List<Currency>, List<Currency>>> fetchRates({String base = 'EUR', int numberOfCryptoCurrencies = 40}) async {
+  
+  List<Currency> international = await fetchLatestCurrencyRate(base: base);
+  List<Currency> crypto = await fetchLatestCryptoCurrenciesRate(base: base, numberOfCryptoCurrencies: numberOfCryptoCurrencies);
+
+  return Tuple3<List<Currency>, List<Currency>, List<Currency>>(international, crypto, new List.from(international)..addAll(crypto));
+}
+
 Future<List<Currency>> fetchLatestCurrencyRate({String base = 'EUR'}) async {
   final response =
       await http.get('https://api.exchangeratesapi.io/latest?base='+base);
