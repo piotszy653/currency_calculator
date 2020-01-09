@@ -1,3 +1,5 @@
+import 'CurrencyApiManager.dart';
+
 class Currency{
   final String base;
   final String name;
@@ -15,6 +17,12 @@ class Currency{
       logoUrl: json['logo_url'] as String,
       price: double.parse(json['price'])
     );
+  }
+
+  Future<String> getInfo(){
+    CurrencyApiManager manager = new CurrencyApiManager();
+    return manager.fetchCurrencyInfo(currency: this.name);
+
   }
 
   num rate(Currency to, {double amount = 1}){

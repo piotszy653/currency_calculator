@@ -10,6 +10,23 @@ class CurrencyApiManager {
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
 
+Future<String> fetchCurrencyInfo({String currency = 'EURO'}) async {
+
+String request =  'https://en.wikipedia.org/w/api.php?action=query&format=json&titles='
+    + currency.replaceAll(' ', '%20') 
+    +'&prop=extracts&exintro&explaintext';
+    print(request);
+  final response = await http.get(request);
+
+    if(response.statusCode == 200){
+      Map<String, dynamic> infoResponse = jsonDecode(response.body);
+      return infoResponse['query']['pages'].values.first['extract'];
+    } else {
+      throw Exception("Failed to load info for " + currency);
+    }
+
+}
+
 // args in tuple: international, crypto
 Tuple2<Future<List<Currency>>, Future<List<Currency>>> fetchRates({String base = 'EUR', int numberOfCryptoCurrencies = 40}) {
 
@@ -42,15 +59,16 @@ Future<List<Currency>> fetchLatestCurrencyRate({String base = 'EUR'}) async {
     rate.rates.keys.forEach((key) => {keys.add(key)});
 
     for(String key in keys){
-      String currencyFlagUrl = (await fetchFlagAndNameByCurrency(key)).item1;
+      Tuple2<String, String> tuple = await fetchFlagAndNameByCurrency(key);
       currencies.add(new Currency(
         base: rate.base,
+        name: tuple.item2,
         symbol: key,
-        logoUrl: currencyFlagUrl,
+        logoUrl: tuple.item1,
         price: rate.rates.remove(key)
       ));
     }
-      Tuple2<String, String> tuple = await fetchFlagAndNameByCurrency(rate.base);
+    Tuple2<String, String> tuple = await fetchFlagAndNameByCurrency(rate.base);
     currencies.add(new Currency(
       base: rate.base,
       name: tuple.item2,
