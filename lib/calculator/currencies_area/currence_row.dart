@@ -15,7 +15,7 @@ class CurrenceRow extends StatelessWidget {
       {this.value = "", this.top = false, this.bottom = false}) {
     shortcut = currency.symbol;
     imageUrl = currency.logoUrl;
-    name = "";
+    name = currency.name != null ? currency.name : "";
     this.currency = currency;
   }
 

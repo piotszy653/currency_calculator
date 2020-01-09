@@ -21,7 +21,7 @@ class ChangeThemDialog {
           content: new Column(
             children: <Widget>[
               ListTile(
-                title: Text("Dark orange", style: textStyle),
+                title: Text("Android Blue", style: textStyle),
                 onTap: () {
                   handleOnChange(0, context, storage);
                 },
@@ -35,7 +35,7 @@ class ChangeThemDialog {
                 ),
               ),
               ListTile(
-                title: Text("Yellow", style: textStyle),
+                title: Text("Dark orange", style: textStyle),
                 onTap: () {
                   handleOnChange(1, context, storage);
                 },
@@ -49,7 +49,7 @@ class ChangeThemDialog {
                 ),
               ),
               ListTile(
-                title: Text("Pink", style: textStyle),
+                title: Text("Yellow", style: textStyle),
                 onTap: () {
                   handleOnChange(2, context, storage);
                 },
@@ -63,7 +63,7 @@ class ChangeThemDialog {
                 ),
               ),
               ListTile(
-                title: Text("Agresive Red", style: textStyle),
+                title: Text("Pink", style: textStyle),
                 onTap: () {
                   handleOnChange(3, context, storage);
                 },
@@ -77,7 +77,7 @@ class ChangeThemDialog {
                 ),
               ),
               ListTile(
-                title: Text("Brown", style: textStyle),
+                title: Text("Agresive Red", style: textStyle),
                 onTap: () {
                   handleOnChange(4, context, storage);
                 },
@@ -89,7 +89,21 @@ class ChangeThemDialog {
                     handleOnChange(4, context, storage);
                   },
                 ),
-              )
+              ),
+              ListTile(
+                title: Text("Brown", style: textStyle),
+                onTap: () {
+                  handleOnChange(5, context, storage);
+                },
+                leading: Radio(
+                  value: 5,
+                  activeColor: backgroundDark,
+                  groupValue: storage.themIndex,
+                  onChanged: (int value) {
+                    handleOnChange(5, context, storage);
+                  },
+                ),
+              ),
             ],
           ),
           actions: <Widget>[

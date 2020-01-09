@@ -22,6 +22,8 @@ class Storage extends ChangeNotifier {
   }
 
   List<Them> _thems = [
+    Them(Color(0xFF357eff), Color(0xFF404040), Color(0xFF545454),
+        Colors.blue[600], Colors.white),
     Them(Color(0xFFfe6f27), Color(0xFF2f2d29), Color(0xFF3b3834), Colors.orange,
         Colors.orange[50]),
     Them(Color(0xFF2a3251), Color(0xFFffd55b), Color(0xFFffda70),
@@ -31,7 +33,7 @@ class Storage extends ChangeNotifier {
     Them(Color(0xFF28334f), Color(0xFFf93800), Color(0xFFfc5626),
         Colors.yellow[700], Colors.white70),
     Them(Color(0xFF30110e), Color(0xFFf2bd96), Color(0xFFf5c8a6),
-        Colors.brown[700], Colors.brown[50])
+        Colors.brown[700], Colors.brown[50]),
   ];
   List<Them> get thems => _thems;
 
