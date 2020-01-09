@@ -31,8 +31,17 @@ class CurrenciesArea extends StatelessWidget {
                 // return: show error widget
               }
               List<Currency> currencys = snapshot.data ?? [];
-              Currency selectedCurrency = currencys.fold(new Currency(), (val, el) => el.symbol == storage.currency ? el : val);
-              print(selectedCurrency.symbol);
+              currencys = currencys
+                  .where((currency) => storage.actualShowCurrenciesShortcuts
+                      .contains(currency.symbol))
+                  .toList();
+              currencys.sort((a, b) => storage.actualShowCurrenciesShortcuts
+                  .indexOf(a.symbol)
+                  .compareTo(
+                      storage.actualShowCurrenciesShortcuts.indexOf(b.symbol)));
+
+              Currency selectedCurrency = currencys.fold(new Currency(),
+                  (val, el) => el.symbol == storage.currency ? el : val);
               int index = -1;
 
               return Container(
@@ -42,18 +51,13 @@ class CurrenciesArea extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: currencys.map((currency) {
                         index++;
-                        if (storage.actualShowCurrenciesShortcuts
-                            .contains(currency.symbol)) {
-                          return CurrenceRow(
-                              shortcut: currency.symbol,
-                              imageUrl: currency.logoUrl,
-                              value: currency.rate(selectedCurrency, amount: double.parse(storage.calculatedValue)).toStringAsFixed(storage.afterTheDecimalPoint),
-                              name: "unknown",
-                              id: index,
-                              top: index == 0 ? true : false);
-                        } else {
-                          return Container();
-                        }
+                        return CurrenceRow(index, currency,
+                            value: currency
+                                .rate(selectedCurrency,
+                                    amount:
+                                        double.parse(storage.calculatedValue))
+                                .toStringAsFixed(storage.afterTheDecimalPoint),
+                            top: index == 0 ? true : false);
                       }).toList()));
             }));
   }

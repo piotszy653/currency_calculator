@@ -20,7 +20,7 @@ class Calculator {
       storage.caclucatorPage = 1;
       storage.caclucatorPageController.animateToPage(
         1,
-        duration: const Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     }

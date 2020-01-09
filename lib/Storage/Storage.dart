@@ -4,10 +4,7 @@ import 'package:math_expressions/math_expressions.dart';
 import '../api/CurrencyApiManager.dart';
 
 class Storage extends ChangeNotifier {
-  List<String> _pages = [
-    'International payments',
-    'Cryptocurrencies'
-  ];
+  List<String> _pages = ['International payments', 'Cryptocurrencies'];
   List<String> get pages => _pages;
   set pages(List<String> value) {
     _pages = value;
@@ -51,7 +48,8 @@ class Storage extends ChangeNotifier {
   PageController _changeCurrencyPageController = PageController(
     initialPage: 0,
   );
-  PageController get changeCurrencyPageController => _changeCurrencyPageController;
+  PageController get changeCurrencyPageController =>
+      _changeCurrencyPageController;
 
   int _page = 0;
   int get page => _page;
@@ -103,12 +101,13 @@ class Storage extends ChangeNotifier {
   set calculationInput(String value) {
     _calculationInput = value;
     try {
-      Expression exp = p.parse(value.replaceAll('[', '(').replaceAll(']', ')').replaceAll(',', '.'));
+      Expression exp = p.parse(
+          value.replaceAll('[', '(').replaceAll(']', ')').replaceAll(',', '.'));
       _calculatedValue = exp.evaluate(EvaluationType.REAL, null).toString();
     } catch (e) {
       print(e.toString());
     }
-    if(value == "") {
+    if (value == "") {
       _calculatedValue = _defaultCurrencyValue.toString();
     }
     notifyListeners();
@@ -132,7 +131,21 @@ class Storage extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> _actualShowCurrenciesShortcuts = ["EUR", "HUF", "PLN", "USD", "CHF"];
+  Currency _actualShowingInfo =
+      new Currency(base: "", symbol: "", logoUrl: "", price: 0);
+  get actualShowingInfo => _actualShowingInfo;
+  set actualShowingInfo(Currency value) {
+    _actualShowingInfo = value;
+    notifyListeners();
+  }
+
+  List<String> _actualShowCurrenciesShortcuts = [
+    "EUR",
+    "HUF",
+    "PLN",
+    "USD",
+    "CHF"
+  ];
   get actualShowCurrenciesShortcuts => _actualShowCurrenciesShortcuts;
   set actualShowCurrenciesShortcuts(String value) {
     _actualShowCurrenciesShortcuts[_actualChangingCurrencyIndex] = value;

@@ -38,7 +38,7 @@ class Navigation extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: storage.pages
               .map((page) => Expanded(
-                  flex: page == 'International payments' ? 3 : 2,
+                  flex: page == 'International payments' ? 12 : 9,
                   child: GestureDetector(
                       onTap: () {
                         pageController.animateToPage(

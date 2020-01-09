@@ -1,4 +1,5 @@
 import 'package:currency_calculator/Storage/Storage.dart';
+import 'package:currency_calculator/api/Currency.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,14 +10,14 @@ class CurrenceRow extends StatelessWidget {
   String value;
   int id;
   bool top, bottom;
-  CurrenceRow(
-      {this.shortcut,
-      this.name,
-      this.value,
-      this.imageUrl,
-      this.top = false,
-      this.bottom = false,
-      this.id});
+  Currency currency;
+  CurrenceRow(int id, Currency currency,
+      {this.value = "", this.top = false, this.bottom = false}) {
+    shortcut = currency.symbol;
+    imageUrl = currency.logoUrl;
+    name = "";
+    this.currency = currency;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +131,12 @@ class CurrenceRow extends StatelessWidget {
           ),
           onDismissed: (direction) {},
           confirmDismiss: (DismissDirection direction) async {
-            if(direction == DismissDirection.startToEnd) {
-              storage.actualChangingCurrencyIndex = storage.actualShowCurrenciesShortcuts.indexOf(shortcut);
+            if (direction == DismissDirection.startToEnd) {
+              storage.actualChangingCurrencyIndex =
+                  storage.actualShowCurrenciesShortcuts.indexOf(shortcut);
+            }
+            if (direction == DismissDirection.endToStart) {
+              storage.actualShowingInfo = this.currency;
             }
             storage.caclucatorPageController.animateToPage(
               direction == DismissDirection.startToEnd ? 0 : 2,
