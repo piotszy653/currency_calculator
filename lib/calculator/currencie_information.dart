@@ -12,14 +12,17 @@ class CurrencieInformationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Storage storage = Provider.of<Storage>(context);
-    Color backgroundLightSoft =
-        storage.thems[storage.themIndex.toInt()].backgrounds.lighterSoft;
+    Color backgroundLight =
+        storage.thems[storage.themIndex.toInt()].backgrounds.lighter;
     Color fontLight = storage.thems[storage.themIndex.toInt()].fonts.light;
     Currency currency = storage.actualShowingInfo;
+    Future<String> information = currency.getInfo();
+    double c_width = MediaQuery.of(context).size.width * 0.9;
 
     return Container(
-      color: backgroundLightSoft,
-      child: Column(
+      color: backgroundLight,
+      child: SingleChildScrollView(
+          child: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           HigherAppBar(
@@ -46,8 +49,38 @@ class CurrencieInformationPage extends StatelessWidget {
                     height: 100,
                     child: Image.network(currency.logoUrl, fit: BoxFit.cover))
               ]),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                    width: c_width,
+                    child: FutureBuilder<String>(
+                      future: information,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                            padding: EdgeInsets.fromLTRB(0.0, 40, 0.0, 40.0),
+                              child: Text(snapshot.data,
+                                  style: TextStyle(color: fontLight)));
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
+                        }
+                        return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Expanded(
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      color: backgroundLight,
+                                      height: 300.0,
+                                      child: CircularProgressIndicator()))
+                            ]);
+                      },
+                    ))
+              ]),
         ],
-      ),
+      )),
     );
   }
 }

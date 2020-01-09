@@ -13,6 +13,7 @@ class DisplayArea extends StatelessWidget {
     Color backgroundLight =
         storage.thems[storage.themIndex.toInt()].backgrounds.lighter;
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
+    Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
 
     void onPageChanged(int value) {
       if (changeCurrency != null && changeCurrency) {
@@ -35,10 +36,15 @@ class DisplayArea extends StatelessWidget {
                       : storage.internationalCurrencies,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done) {
-                      // return: show loading widget
+                      return Container(
+                          alignment: Alignment.center,
+                          color: backgroundLight,
+                          width: 200.0,
+                          height: 200.0,
+                          child: CircularProgressIndicator());
                     }
                     if (snapshot.hasError) {
-                      // return: show error widget
+                      return Text("${snapshot.error}");
                     }
                     List<Currency> currencys = snapshot.data ?? [];
                     currencys.sort((a, b) => a.symbol.compareTo(b.symbol));
@@ -51,7 +57,9 @@ class DisplayArea extends StatelessWidget {
                             itemCount: currencys.length,
                             itemBuilder: (context, index) {
                               Currency currency = currencys[index];
-                              bool selected = storage.actualShowCurrenciesShortcuts.contains(currency.symbol);
+                              bool selected = storage
+                                  .actualShowCurrenciesShortcuts
+                                  .contains(currency.symbol);
                               firstAppeard = false;
                               if (firstGroupLetter !=
                                   currency.symbol.toUpperCase()[0]) {
@@ -68,21 +76,30 @@ class DisplayArea extends StatelessWidget {
                                         fontSize: 20,
                                         color: fontColorLight,
                                         fontWeight: FontWeight.w400)),
-                                trailing: selected ? Icon(
-                                  Icons.check,
-                                  color: Colors.green[300],
-                                  size: 22.0,
-                                ) : Text(""),
+                                trailing: selected
+                                    ? Icon(
+                                        Icons.check,
+                                        color: Colors.green[300],
+                                        size: 22.0,
+                                      )
+                                    : Text(""),
                                 title: Row(
                                   children: <Widget>[
                                     Container(
                                         width: 42,
                                         child: Image.network(currency.logoUrl,
                                             height: 25)),
-                                    Text(currency.symbol,
+                                    Container(
+                                      width: 45,
+                                      child: Text(currency.symbol,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: fontColorLight)),
+                                    ),
+                                    Text(currency.name,
                                         style: TextStyle(
-                                            fontSize: 14,
-                                            color: fontColorLight)),
+                                            fontSize: 12,
+                                            color: fontColorDark)),
                                   ],
                                 ),
                                 onTap: () {
@@ -91,6 +108,12 @@ class DisplayArea extends StatelessWidget {
                                   }
                                   if (!storage.actualShowCurrenciesShortcuts
                                       .contains(currency.symbol)) {
+                                    if (storage.actualShowCurrenciesShortcuts[
+                                            storage
+                                                .actualChangingCurrencyIndex] ==
+                                        storage.currency) {
+                                      storage.currency = currency.symbol;
+                                    }
                                     storage.actualShowCurrenciesShortcuts[
                                             storage
                                                 .actualChangingCurrencyIndex] =
@@ -111,31 +134,3 @@ class DisplayArea extends StatelessWidget {
     );
   }
 }
-
-// FutureBuilder<List<Currency>>(
-//     future: storage.internationalCurrencies,
-//     builder: (context, snapshot) {
-//       if(snapshot.connectionState != ConnectionState.done) {
-//         // return: show loading widget
-//       }
-//       if(snapshot.hasError) {
-//         // return: show error widget
-//       }
-//       List<Currency> currencys = snapshot.data ?? [];
-//       return ListView.builder(
-//         itemCount: currencys.length,
-//         itemBuilder: (context, index) {
-//           Currency currency = currencys[index];
-//           return new ListTile(
-//             // leading: CircleAvatar(
-//             //   backgroundImage: AssetImage(currency.profilePicture),
-//             // ),
-//             // trailing: currency.icon,
-//             title: new Text(currency.symbol),
-//             // onTap: () {
-//             //   Navigator.push(context,
-//             //       new MaterialPageRoute(builder: (context) => new Home()));
-//             // },
-//           );
-//       });
-//   })

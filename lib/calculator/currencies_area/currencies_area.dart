@@ -25,10 +25,20 @@ class CurrenciesArea extends StatelessWidget {
             future: storage.allCurrencies,
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
-                // return: show loading widget
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                        child: Container(
+                            alignment: Alignment.center,
+                            color: backgroundLight,
+                            height: 300.0,
+                            child: CircularProgressIndicator()))
+                  ],
+                );
               }
               if (snapshot.hasError) {
-                // return: show error widget
+                return Expanded(child: Text("Loading error."));
               }
               List<Currency> currencys = snapshot.data ?? [];
               currencys = currencys
