@@ -10,13 +10,24 @@ class CurrencyApiManager {
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
 
-// args in tuple: international, crypto, joined first  and second
-Future<Tuple3<List<Currency>, List<Currency>, List<Currency>>> fetchRates({String base = 'EUR', int numberOfCryptoCurrencies = 40}) async {
-  
-  List<Currency> international = await fetchLatestCurrencyRate(base: base);
-  List<Currency> crypto = await fetchLatestCryptoCurrenciesRate(base: base, numberOfCryptoCurrencies: numberOfCryptoCurrencies);
+// args in tuple: international, crypto
+Tuple2<Future<List<Currency>>, Future<List<Currency>>> fetchRates({String base = 'EUR', int numberOfCryptoCurrencies = 40}) {
 
-  return Tuple3<List<Currency>, List<Currency>, List<Currency>>(international, crypto, new List.from(international)..addAll(crypto));
+  return Tuple2<Future<List<Currency>>, Future<List<Currency>>>(
+    fetchLatestCurrencyRate(base: base), 
+    fetchLatestCryptoCurrenciesRate(base: base, numberOfCryptoCurrencies: numberOfCryptoCurrencies)
+    );
+}
+
+Future<List<Currency>> fetchJoinedRates({String base = 'EUR', int numberOfCryptoCurrencies = 40}){
+  return getJoinedRates(base: base, numberOfCryptoCurrencies: numberOfCryptoCurrencies);
+}
+
+Future<List<Currency>> getJoinedRates({String base = 'EUR', int numberOfCryptoCurrencies = 40}) async {
+  List<Currency> international =  await fetchLatestCurrencyRate(base: base);
+  List<Currency> crypto =  await fetchLatestCryptoCurrenciesRate(base: base, numberOfCryptoCurrencies: numberOfCryptoCurrencies);
+
+  return new List.from(international)..addAll(crypto);
 }
 
 Future<List<Currency>> fetchLatestCurrencyRate({String base = 'EUR'}) async {
