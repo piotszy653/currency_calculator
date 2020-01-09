@@ -22,7 +22,7 @@ class CurrenciesArea extends StatelessWidget {
     return Container(
         color: backgroundLight,
         child: FutureBuilder<List<Currency>>(
-            future: storage.internationalCurrencies,
+            future: storage.allCurrencies,
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 // return: show loading widget

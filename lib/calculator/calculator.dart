@@ -17,6 +17,7 @@ class Calculator {
     }
 
     void backToCalculatorPage() {
+      storage.changeCurrencyPage = 0;
       storage.caclucatorPage = 1;
       storage.caclucatorPageController.animateToPage(
         1,

@@ -124,6 +124,10 @@ class Storage extends ChangeNotifier {
       _currencyApiManager.fetchLatestCryptoCurrenciesRate();
   get cryptoCurrencies => _cryptoCurrencies;
 
+  Future<List<Currency>> _allCurrencies =
+      _currencyApiManager.fetchJoinedRates();
+  get allCurrencies => _allCurrencies;
+
   int _actualChangingCurrencyIndex = 0;
   get actualChangingCurrencyIndex => _actualChangingCurrencyIndex;
   set actualChangingCurrencyIndex(int value) {

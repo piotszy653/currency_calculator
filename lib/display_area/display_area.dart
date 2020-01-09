@@ -13,6 +13,7 @@ class DisplayArea extends StatelessWidget {
     Color backgroundLight =
         storage.thems[storage.themIndex.toInt()].backgrounds.lighter;
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
+
     void onPageChanged(int value) {
       if (changeCurrency != null && changeCurrency) {
         storage.changeCurrencyPage = value;
@@ -50,6 +51,7 @@ class DisplayArea extends StatelessWidget {
                             itemCount: currencys.length,
                             itemBuilder: (context, index) {
                               Currency currency = currencys[index];
+                              bool selected = storage.actualShowCurrenciesShortcuts.contains(currency.symbol);
                               firstAppeard = false;
                               if (firstGroupLetter !=
                                   currency.symbol.toUpperCase()[0]) {
@@ -59,13 +61,18 @@ class DisplayArea extends StatelessWidget {
                               }
                               return new ListTile(
                                 contentPadding:
-                                    EdgeInsets.fromLTRB(35.0, 0, 0, 0),
+                                    EdgeInsets.fromLTRB(35.0, 0, 17.0, 0),
                                 leading: Text(
                                     firstAppeard ? firstGroupLetter : "",
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: fontColorLight,
                                         fontWeight: FontWeight.w400)),
+                                trailing: selected ? Icon(
+                                  Icons.check,
+                                  color: Colors.green[300],
+                                  size: 22.0,
+                                ) : Text(""),
                                 title: Row(
                                   children: <Widget>[
                                     Container(
@@ -89,6 +96,7 @@ class DisplayArea extends StatelessWidget {
                                                 .actualChangingCurrencyIndex] =
                                         currency.symbol;
                                   }
+                                  storage.changeCurrencyPage = 0;
                                   storage.caclucatorPageController
                                       .animateToPage(
                                     1,
