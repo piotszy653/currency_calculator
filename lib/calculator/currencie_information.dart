@@ -60,7 +60,7 @@ class CurrencieInformationPage extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Container(
-                            padding: EdgeInsets.fromLTRB(0.0, 0, 0.0, 20.0),
+                            padding: EdgeInsets.fromLTRB(0.0, 40, 0.0, 40.0),
                               child: Text(snapshot.data,
                                   style: TextStyle(color: fontLight)));
                         } else if (snapshot.hasError) {

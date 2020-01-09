@@ -13,6 +13,7 @@ class DisplayArea extends StatelessWidget {
     Color backgroundLight =
         storage.thems[storage.themIndex.toInt()].backgrounds.lighter;
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
+    Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
 
     void onPageChanged(int value) {
       if (changeCurrency != null && changeCurrency) {
@@ -88,10 +89,17 @@ class DisplayArea extends StatelessWidget {
                                         width: 42,
                                         child: Image.network(currency.logoUrl,
                                             height: 25)),
-                                    Text(currency.symbol,
+                                    Container(
+                                      width: 45,
+                                      child: Text(currency.symbol,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: fontColorLight)),
+                                    ),
+                                    Text(currency.name,
                                         style: TextStyle(
-                                            fontSize: 14,
-                                            color: fontColorLight)),
+                                            fontSize: 12,
+                                            color: fontColorDark)),
                                   ],
                                 ),
                                 onTap: () {
@@ -100,11 +108,16 @@ class DisplayArea extends StatelessWidget {
                                   }
                                   if (!storage.actualShowCurrenciesShortcuts
                                       .contains(currency.symbol)) {
+                                    if (storage.actualShowCurrenciesShortcuts[
+                                            storage
+                                                .actualChangingCurrencyIndex] ==
+                                        storage.currency) {
+                                      storage.currency = currency.symbol;
+                                    }
                                     storage.actualShowCurrenciesShortcuts[
                                             storage
                                                 .actualChangingCurrencyIndex] =
                                         currency.symbol;
-                                    storage.currency = currency.symbol;
                                   }
                                   storage.changeCurrencyPage = 0;
                                   storage.caclucatorPageController

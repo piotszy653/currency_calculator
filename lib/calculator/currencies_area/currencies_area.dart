@@ -38,7 +38,7 @@ class CurrenciesArea extends StatelessWidget {
                 );
               }
               if (snapshot.hasError) {
-                return Text("Loading error.");
+                return Expanded(child: Text("Loading error."));
               }
               List<Currency> currencys = snapshot.data ?? [];
               currencys = currencys
