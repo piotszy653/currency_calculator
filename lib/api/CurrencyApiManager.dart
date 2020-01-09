@@ -1,6 +1,7 @@
 import 'package:currency_calculator/api/Currency.dart';
 import 'package:currency_calculator/api/dto/crypto/CryptoCurrencyRateList.dart';
 import 'package:http/http.dart' as http;
+import 'package:tuple/tuple.dart';
 import './dto/ExchangeRate.dart';
 import 'dart:convert';
 
@@ -8,25 +9,6 @@ class CurrencyApiManager {
 
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
-List<Currency> currencies;
-List<Currency> cryptoCurrencies;
-
-onValueCurrencies(dynamic value){
-  currencies = value;
-}
-
-onValueCryptoCurrencies(dynamic value){
-  cryptoCurrencies = value;
-}
-
-List<Currency> getCurrenciesRate({String base = 'EUR'}){
-  fetchLatestCurrencyRate(base: base).then(onValueCurrencies);
-}
-
-
-List<Currency> getCryptoCurrenciesRate({String base = 'EUR', int numberOfCryptoCurrencies = 40}){
-  fetchLatestCryptoCurrenciesRate(base: base, numberOfCryptoCurrencies: numberOfCryptoCurrencies).then(onValueCryptoCurrencies);
-}
 
 Future<List<Currency>> fetchLatestCurrencyRate({String base = 'EUR'}) async {
   final response =
@@ -40,7 +22,7 @@ Future<List<Currency>> fetchLatestCurrencyRate({String base = 'EUR'}) async {
     rate.rates.keys.forEach((key) => {keys.add(key)});
 
     for(String key in keys){
-      String currencyFlagUrl = await fetchFlagByCurrency(key);
+      String currencyFlagUrl = (await fetchFlagAndNameByCurrency(key)).item1;
       currencies.add(new Currency(
         base: rate.base,
         symbol: key,
@@ -48,11 +30,12 @@ Future<List<Currency>> fetchLatestCurrencyRate({String base = 'EUR'}) async {
         price: rate.rates.remove(key)
       ));
     }
-      String baseFlagUrl = await fetchFlagByCurrency(rate.base);
+      Tuple2<String, String> tuple = await fetchFlagAndNameByCurrency(rate.base);
     currencies.add(new Currency(
       base: rate.base,
+      name: tuple.item2,
       symbol: rate.base,
-      logoUrl: baseFlagUrl,
+      logoUrl: tuple.item1,
       price: 1.0
     ));
     return currencies;
@@ -73,14 +56,16 @@ Future<List<Currency>> fetchLatestCryptoCurrenciesRate({String base = 'EUR', int
   }
 }
 
-Future<String> fetchFlagByCurrency(String currency) async{
+Future<Tuple2<String, String>> fetchFlagAndNameByCurrency(String currency) async{
   if(currency == 'EUR')
-  return europeanUnionFlagUrl;
+  return Tuple2<String, String>(europeanUnionFlagUrl, 'Euro');
   final response = await http.get('https://restcountries.eu/rest/v2/currency/' + currency);
 
   if (response.statusCode == 200) {
     List<dynamic> countryResponse = json.decode(response.body);
-    return countryResponse.map((json) => json['flag']).toList().first;
+    String flagUrl = countryResponse.map((json) => json['flag']).toList().first;
+    String name = countryResponse.map((json) => json['currencies']).toList().first.map((currencies) => currencies['name']).toList().first;
+    return Tuple2<String, String>(flagUrl, name);
   } else if(response.statusCode == 400){
     throw Exception('wrong currency: '+ currency);
   }
