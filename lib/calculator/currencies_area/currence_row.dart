@@ -90,7 +90,7 @@ class CurrenceRow extends StatelessWidget {
                                             7.0) //         <--- border radius here
                                         ),
                                     border: Border.all(
-                                      color: fontColorDark,
+                                      color: Colors.black.withOpacity(0.4),
                                       width: 1,
                                     ),
                                     image: DecorationImage(
