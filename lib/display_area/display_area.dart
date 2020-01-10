@@ -87,8 +87,11 @@ class DisplayArea extends StatelessWidget {
                                   children: <Widget>[
                                     Container(
                                         width: 42,
-                                        child: Image.network(currency.logoUrl,
-                                            height: 25)),
+                                        child: Image(
+                                            image: AssetImage("assets/images/" +
+                                                currency.symbol.toLowerCase() +
+                                                ".jpg"),
+                                            width: 18)),
                                     Container(
                                       width: 45,
                                       child: Text(currency.symbol,

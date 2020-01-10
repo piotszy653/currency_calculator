@@ -47,9 +47,76 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  assets:
+   - assets/images/ada.jpg
+   - assets/images/atom.jpg
+   - assets/images/aud.jpg
+   - assets/images/bat.jpg
+   - assets/images/bch.jpg
+   - assets/images/bchsv.jpg
+   - assets/images/bgn.jpg
+   - assets/images/bnb.jpg
+   - assets/images/brl.jpg
+   - assets/images/btc.jpg
+   - assets/images/cad.jpg
+   - assets/images/chf.jpg
+   - assets/images/cny.jpg
+   - assets/images/cro.jpg
+   - assets/images/czk.jpg
+   - assets/images/dash.jpg
+   - assets/images/dcr.jpg
+   - assets/images/dkk.jpg
+   - assets/images/doge.jpg
+   - assets/images/eos.jpg
+   - assets/images/etc.jpg
+   - assets/images/eth.jpg
+   - assets/images/eur.jpg
+   - assets/images/gbp.jpg
+   - assets/images/grph.jpg
+   - assets/images/hkd.jpg
+   - assets/images/hrk.jpg
+   - assets/images/ht.jpg
+   - assets/images/huf.jpg
+   - assets/images/idr.jpg
+   - assets/images/ils.jpg
+   - assets/images/inr.jpg
+   - assets/images/iot.jpg
+   - assets/images/isk.jpg
+   - assets/images/jpy.jpg
+   - assets/images/krw.jpg
+   - assets/images/leo.jpg
+   - assets/images/link.jpg
+   - assets/images/lsk.jpg
+   - assets/images/ltc.jpg
+   - assets/images/mkr.jpg
+   - assets/images/mxn.jpg
+   - assets/images/myr.jpg
+   - assets/images/neo.jpg
+   - assets/images/okb.jpg
+   - assets/images/pax.jpg
+   - assets/images/pln.jpg
+   - assets/images/qtum.jpg
+   - assets/images/ron.jpg
+   - assets/images/rub.jpg
+   - assets/images/rvn.jpg
+   - assets/images/sek.jpg
+   - assets/images/sgd.jpg
+   - assets/images/thb.jpg
+   - assets/images/trx.jpg
+   - assets/images/try.jpg
+   - assets/images/tusd.jpg
+   - assets/images/usd.jpg
+   - assets/images/usdc.jpg
+   - assets/images/usdt.jpg
+   - assets/images/vet.jpg
+   - assets/images/xem.jpg
+   - assets/images/xlm.jpg
+   - assets/images/xmr.jpg
+   - assets/images/xrp.jpg
+   - assets/images/xtz.jpg
+   - assets/images/zar.jpg
+   - assets/images/zec.jpg
+   - assets/images/zrx.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

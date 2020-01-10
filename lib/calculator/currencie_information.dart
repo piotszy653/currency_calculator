@@ -47,7 +47,11 @@ class CurrencieInformationPage extends StatelessWidget {
               children: <Widget>[
                 Container(
                     height: 100,
-                    child: Image.network(currency.logoUrl, fit: BoxFit.cover))
+                    child: Image(
+                        image: AssetImage("assets/images/" +
+                            currency.symbol.toLowerCase() +
+                            ".jpg"),
+                        fit: BoxFit.cover)),
               ]),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +64,7 @@ class CurrencieInformationPage extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Container(
-                            padding: EdgeInsets.fromLTRB(0.0, 40, 0.0, 40.0),
+                              padding: EdgeInsets.fromLTRB(0.0, 40, 0.0, 40.0),
                               child: Text(snapshot.data,
                                   style: TextStyle(color: fontLight)));
                         } else if (snapshot.hasError) {

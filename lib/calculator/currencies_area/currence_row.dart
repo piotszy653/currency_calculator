@@ -69,11 +69,14 @@ class CurrenceRow extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Container(
-                          height: 45,
-                          padding: EdgeInsets.only(
-                              left: 12.0, right: 12.0, top: 5, bottom: 5),
-                          child: Image.network(imageUrl, fit: BoxFit.cover),
-                        )
+                            height: 45,
+                            padding: EdgeInsets.only(
+                                left: 12.0, right: 12.0, top: 5, bottom: 5),
+                            child: Image(
+                                image: AssetImage("assets/images/" +
+                                    currency.symbol.toLowerCase() +
+                                    ".jpg"),
+                                fit: BoxFit.cover)),
                       ]),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
