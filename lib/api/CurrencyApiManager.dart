@@ -9,6 +9,10 @@ class CurrencyApiManager {
 
 String nomicsApiKey = "ddebe6a9bfa893b563248344e8c8028c";
 String europeanUnionFlagUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg'; // XDDDDDD
+String gbpName = 'British Pound';
+String zarName = 'South African rand';
+String inrName = 'Indian rupee';
+String sgdName = 'Singapore dollar';
 
 Future<String> fetchCurrencyInfo({String currency = 'EURO'}) async {
 
@@ -102,7 +106,14 @@ Future<Tuple2<String, String>> fetchFlagAndNameByCurrency(String currency) async
   if (response.statusCode == 200) {
     List<dynamic> countryResponse = json.decode(response.body);
     String flagUrl = countryResponse.map((json) => json['flag']).toList().first;
-    String name = countryResponse.map((json) => json['currencies']).toList().first.map((currencies) => currencies['name']).toList().first;
+    String name;
+    switch(currency){
+      case 'GBP' : {name = gbpName;} break;
+      case 'ZAR' : {name = zarName;} break;
+      case 'INR' : {name = inrName;} break;
+      case 'SGD' : {name = sgdName;} break;
+      default : name = countryResponse.map((json) => json['currencies']).toList().first.map((currencies) => currencies['name']).toList().first;
+    }
     return Tuple2<String, String>(flagUrl, name);
   } else if(response.statusCode == 400){
     throw Exception('wrong currency: '+ currency);
