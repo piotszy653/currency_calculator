@@ -12,6 +12,8 @@ class DisplayArea extends StatelessWidget {
     final Storage storage = Provider.of<Storage>(context);
     Color backgroundLight =
         storage.thems[storage.themIndex.toInt()].backgrounds.lighter;
+    Color backgroundDark =
+        storage.thems[storage.themIndex.toInt()].backgrounds.darker;
     Color fontColorLight = storage.thems[storage.themIndex.toInt()].fonts.light;
     Color fontColorDark = storage.thems[storage.themIndex.toInt()].fonts.dark;
 
@@ -74,7 +76,7 @@ class DisplayArea extends StatelessWidget {
                                     firstAppeard ? firstGroupLetter : "",
                                     style: TextStyle(
                                         fontSize: 20,
-                                        color: fontColorLight,
+                                        color: fontColorDark,
                                         fontWeight: FontWeight.w400)),
                                 trailing: selected
                                     ? Icon(
@@ -86,18 +88,46 @@ class DisplayArea extends StatelessWidget {
                                 title: Row(
                                   children: <Widget>[
                                     Container(
-                                        width: 42,
-                                        child: Image(
-                                            image: AssetImage("assets/images/" +
-                                                currency.symbol.toLowerCase() +
-                                                ".jpg"),
-                                            width: 18)),
-                                    Container(
-                                      width: 45,
-                                      child: Text(currency.symbol,
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: fontColorLight)),
+                                        width: 25.0,
+                                        height: 25.0,
+                                        decoration: BoxDecoration(
+                                            //shape: BoxShape.circle,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 1,
+                                                blurRadius: 3,
+                                                offset: Offset(1,
+                                                    1), // changes position of shadow
+                                              ),
+                                            ],
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    7.0) //         <--- border radius here
+                                                ),
+                                            border: Border.all(
+                                              color: fontColorDark,
+                                              width: 1,
+                                            ),
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: AssetImage(
+                                                  "assets/images/" +
+                                                      currency.symbol
+                                                          .toLowerCase() +
+                                                      ".jpg"),
+                                            ))),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          7.0, 00, 0.0, 00.0),
+                                      child: Container(
+                                        width: 45,
+                                        child: Text(currency.symbol,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: fontColorLight)),
+                                      ),
                                     ),
                                     Text(currency.name,
                                         style: TextStyle(

@@ -69,14 +69,46 @@ class CurrenceRow extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Container(
-                            height: 45,
+                            width: 64.0,
+                            height: 40.0,
                             padding: EdgeInsets.only(
                                 left: 12.0, right: 12.0, top: 5, bottom: 5),
-                            child: Image(
-                                image: AssetImage("assets/images/" +
-                                    currency.symbol.toLowerCase() +
-                                    ".jpg"),
-                                fit: BoxFit.cover)),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    //shape: BoxShape.circle,
+                                    boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 3,
+                                    offset: Offset(
+                                        1, 1), // changes position of shadow
+                                  ),
+                                ],
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            7.0) //         <--- border radius here
+                                        ),
+                                    border: Border.all(
+                                      color: fontColorDark,
+                                      width: 1,
+                                    ),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage("assets/images/" +
+                                          currency.symbol.toLowerCase() +
+                                          ".jpg"),
+                                    )))),
+                        // Container(
+                        //     height: 45,
+                        //     width: 65,
+                        //     padding: EdgeInsets.only(
+                        //         left: 12.0, right: 12.0, top: 5, bottom: 5),
+                        //     child: Image(
+                        //         image: AssetImage("assets/images/" +
+                        //             currency.symbol.toLowerCase() +
+                        //             ".jpg"),
+                        //         fit: BoxFit.cover)),
                       ]),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
